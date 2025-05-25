@@ -36,6 +36,8 @@ const TeamRouter = require('./routers/team.js');
 const homeBannerRouter = require('./routers/homeBanner.js');
 const SubscribeRouter = require('./routers/subscribe.js');
 const BlogRouter = require('./routers/blog.js');
+const UploadFilesRouter = require('./routers/upload-files.js');
+
 
 
 app.use('/api/admin', AdminRouter);
@@ -48,6 +50,8 @@ app.use('/api/team', TeamRouter);
 app.use('/api/home-banner', homeBannerRouter);
 app.use('/api/subscribe', SubscribeRouter);
 app.use('/api/blog', BlogRouter);
+app.use('/api/upload', UploadFilesRouter);
+
 
 const db = require('./db/database.js')(eventEmitter);
 eventEmitter.once('db-connection-established', () => {
