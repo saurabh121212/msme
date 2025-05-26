@@ -11,6 +11,11 @@ const storeDestination = {
     'partnersLogo': "partners-logo/",
     'teamMemberImage': "team-member/",
     'homeBannerImage': "home-banner/",
+    'blogImage': "blog-image/",
+    'downloadsFile': "downloads/",
+    'serviceProviderCategoriesImage': "service-provider-categories/",
+    'serviceProvidersImage': "service-providers/",
+
 }
 
 module.exports =  (fileType, fileSize, filePath) => {

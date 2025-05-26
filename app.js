@@ -37,6 +37,9 @@ const homeBannerRouter = require('./routers/homeBanner.js');
 const SubscribeRouter = require('./routers/subscribe.js');
 const BlogRouter = require('./routers/blog.js');
 const UploadFilesRouter = require('./routers/upload-files.js');
+const downloadsRouter = require('./routers/downloads.js');
+const serviceProvidersRouter = require('./routers/serviceProviders.js');
+const serveiceProviderCategoryRouter = require('./routers/serviceProviderCategories.js');
 
 
 
@@ -51,6 +54,9 @@ app.use('/api/home-banner', homeBannerRouter);
 app.use('/api/subscribe', SubscribeRouter);
 app.use('/api/blog', BlogRouter);
 app.use('/api/upload', UploadFilesRouter);
+app.use('/api/downloads', downloadsRouter);
+app.use('/api/service-providers', serviceProvidersRouter);
+app.use('/api/service-provider-category', serveiceProviderCategoryRouter);
 
 
 const db = require('./db/database.js')(eventEmitter);

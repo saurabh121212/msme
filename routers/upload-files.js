@@ -10,6 +10,14 @@ router.post('/team-member-image',  uploader("image", 20, "teamMemberImage").sing
 
 router.post('/home-banner-image',  uploader("image", 20, "homeBannerImage").single("file"), FileController.uploadFile);
 
+router.post('/blog-image',  uploader("image", 20, "blogImage").single("file"), FileController.uploadFile);
+
+router.post('/downloads',  uploader("document", 20, "downloadsFile").single("file"), FileController.uploadFile);
+
+router.post('/service-provider-categories-image',  uploader("image", 20, "serviceProviderCategoriesImage").single("file"), FileController.uploadFile);
+
+router.post('/service-providers-image',  uploader("image", 20, "serviceProvidersImage").single("file"), FileController.uploadFile);
+
 
 // router.post('/gallery-image', uploader("image", 20, "galleryImage").array("file",15), FileController.uploadMultipleFiles);
 
