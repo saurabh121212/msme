@@ -47,6 +47,16 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(600),
             allowNull: false,
         },
+        categorie_id: {
+            type: DataTypes.BIGINT,
+            allowNull: false,
+        },
+        categorie_name: {
+            type: DataTypes.STRING(200),
+            allowNull: false, // or false if required
+            minlength: [3, 'Categorie Name Must be at least 3 characters long'],
+            maxlength: [200, 'Categorie Name Must be at most 200 characters long'],
+        },
     }, {
         paranoid: true,
         timestamps: true,

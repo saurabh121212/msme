@@ -16,6 +16,8 @@ router.post('/add',[
     body('business_name').isLength({min: 3}).withMessage('Business Name must be at least 3 characters long'),
     body('business_description').isLength({min: 3}).withMessage('Business Description must be at least 3 characters long'),
     body('url').notEmpty().withMessage('url is required'),
+    body('categorie_id').notEmpty().withMessage('Category ID is required'),
+    body('categorie_name').isLength({min: 3}).withMessage('Name must be at least 3 characters long'),
 ],authMiddleware.authAdmin, serviceProvidersController.add);
 
 router.put('/update/:id',[
@@ -23,13 +25,14 @@ router.put('/update/:id',[
     body('email').isEmail().withMessage('Email must be a valid email address'),
     body('mobile').isLength({min: 6}).withMessage('Mobile must be at least 6 characters long'),
     body('address').isLength({min: 3}).withMessage('Address must be at least 3 characters long'),
-    body('business_name').isLength({min: 3}).withMessage('Business Name must be at least 3 characters long'),
-    body('business_description').isLength({min: 3}).withMessage('Business Description must be at least 3 characters long'),
+    body('business_name').isLength({min: 3}).withMessage('Business Name must be at least 3 characters long'),    body('business_description').isLength({min: 3}).withMessage('Business Description must be at least 3 characters long'),
     body('url').notEmpty().withMessage('url is required'),
+    body('categorie_id').notEmpty().withMessage('Category ID is required'),
+    body('categorie_name').isLength({min: 3}).withMessage('Name must be at least 3 characters long'),
 ],authMiddleware.authAdmin, serviceProvidersController.update);
 
-
 router.get('/list', serviceProvidersController.get);
+router.get('/list/:categorie_id', serviceProvidersController.getById);
 router.put('/delete/:id',authMiddleware.authAdmin, serviceProvidersController.delete);
 
 

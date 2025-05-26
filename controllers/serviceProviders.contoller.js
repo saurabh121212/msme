@@ -99,3 +99,18 @@ module.exports.delete = async (req, res, next) => {
     return res.status(500).json({error: 'Internal server error'});
     }
 }
+
+module.exports.getById = async (req, res, next) => {
+    const categorie_id = req.params.categorie_id;
+    try {
+    const data = await BaseRepo.baseFindAllById(ServiceProvidersModel, categorie_id ,"categorie_id");
+    if(!data){
+        return res.status(400).json({error: 'Error fetching Service Providers'});
+    }
+    res.status(201).json(data);
+    } 
+    catch (error) {
+    console.error(error);
+    return res.status(500).json({error: 'Internal server error'});
+    }
+}

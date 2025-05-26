@@ -14,6 +14,7 @@ module.exports = {
     baseRestore: baseRestore,
     baseCount: count,
     baseFindById: findById,
+    baseFindAllById: findAllById,
     baseGalleryList: GalleryList,
     baseFindByform_code: findByform_code,
     getWeatherDataFromDate: getWeatherDataFromDate,
@@ -37,6 +38,7 @@ function count(modal, searchParams) {
 }
 
 
+
 function findById(modal, params, key) {
     return modal.findOne({
         where: {
@@ -44,6 +46,15 @@ function findById(modal, params, key) {
         }
     });
 }
+
+function findAllById(modal, params, key) {
+    return modal.findAll({
+        where: {
+            [key]: params
+        }
+    });
+}
+
 
 function findBypatient_code(modal, params) {
     return modal.findOne({
