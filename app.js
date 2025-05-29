@@ -40,6 +40,7 @@ const UploadFilesRouter = require('./routers/upload-files.js');
 const downloadsRouter = require('./routers/downloads.js');
 const serviceProvidersRouter = require('./routers/serviceProviders.js');
 const serveiceProviderCategoryRouter = require('./routers/serviceProviderCategories.js');
+const msmeBusinessRouter = require('./routers/msmeBusiness.js');
 
 
 
@@ -57,6 +58,7 @@ app.use('/api/upload', UploadFilesRouter);
 app.use('/api/downloads', downloadsRouter);
 app.use('/api/service-providers', serviceProvidersRouter);
 app.use('/api/service-provider-category', serveiceProviderCategoryRouter);
+app.use('/api/msme-business', msmeBusinessRouter);
 
 
 const db = require('./db/database.js')(eventEmitter);
