@@ -19,6 +19,10 @@ router.put('/update/:id',[
 ],authMiddleware.authAdmin, blogController.update);
 
 router.get('/list', blogController.get);
+
+router.get('/list/:id', blogController.getById);
+
+
 router.put('/delete/:id',authMiddleware.authAdmin, blogController.delete);
 
 

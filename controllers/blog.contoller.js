@@ -53,6 +53,23 @@ module.exports.get = async (req, res, next) => {
 }
 
 
+module.exports.getById = async (req, res, next) => {
+
+    const id = req.params.id;
+
+  try {
+    const data = await BaseRepo.baseFindById(blogModel, id, "id");
+    if(!data){
+        return res.status(400).json({error: 'Error fetching Blog'});
+    }
+    res.status(201).json(data);
+    } 
+    catch (error) {
+    console.error(error);
+    return res.status(500).json({error: 'Internal server error'});
+    }
+}
+
 module.exports.update = async (req, res, next) => {
 
     const error = validationResult(req);
