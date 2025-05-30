@@ -65,7 +65,7 @@ const RTRApprovedEmailTemplate = (payload) =>
 
 
 // Ragistration Email Hospital
-const ragistrationEmailHospital = (payload) =>
+const ragistrationEmail = (payload) =>
     `<html>
 <head>
     <title></title>
@@ -74,14 +74,15 @@ const ragistrationEmailHospital = (payload) =>
     <!-- Take only this part for email -->
    
     <b>Dear User,</b> <br>
-    <b>Verification code</b>
-    <p>Please use the verification code below to verify your account</p> 
-    <b>OTP - ${payload}</b><br><br><br>
+    <p>Thank you for submitting your registration request. We have received your information and will review the details provided.</p> 
+    <p>Our team will carefully evaluate your submission and proceed with the approval process. If any additional details are required, we will reach out to you.</p>
+    <p>You will receive an update on the status of your registration soon. In the meantime, please feel free to contact us if you have any questions.</p>
+    <br><br><br>
 
     <b> Regards, </b> <br>
-    Eswatini Meteorological Service
+    Eswatini MSME Platform Admin
     <br><br>
-    <b> Eswatini Meteorological Service </b><br>
+    <b> Eswatini MSME Platform Admin </b><br>
     Email: To be added later<br>
     Tell: To be added later<br>
     Cell: To be added later<br>
@@ -193,18 +194,17 @@ const userApprovedEmailTemplate = (payload, email) =>
     <!-- Take only this part for email -->
    
     <b>Dear User,</b> <br>
-    <p>We are pleased to inform you that your registration request has been approved.</p> 
+    <p>We are pleased to inform you that your registration request has been reviewed and approved by our system administrator. You MSME listing is now live on our platform. </p> 
+    <p>If you have any questions or require further assistance, please feel free to reach out.</p>
+    <p>Welcome aboard!</p>
+    <br>
     <b> Regards, </b> <br>
-    EEA System Admin
+    Eswatini MSME Platform Admin
     <br><br>
-    <b> Eswatini Environment Authority </b><br>
-    RHUS Office Park<br>
-    Karl Grant Street<br>
-    Mbabane<br>
-    Eswatini<br>
-    Email: systems@eea.org.sz <br>
-    Tell: +268 2404 6960/7893 <br>
-    Cell: +268 7854 6907 or 7806 1658 <br>
+    <b> Eswatini MSME Platform Admin </b><br>
+    Email: To be added later <br>
+    Tell: To be added later <br>
+    Cell: To be added later <br>
     <br><br><br>
     <p style="color:red;"> *This is a system generated message, please do not reply to this email.</p>
     </body>
@@ -221,19 +221,17 @@ const userRejectedEmailTemplate = (payload, email) =>
     <!-- Take only this part for email -->
    
     <b>Dear User,</b> <br>
-    <p>We regret to inform you that your registration request was not accepted. Please
-    contact the system admin to understand why your request was rejected.</p> 
+    <p>Thank you for submitting your registration request. After reviewing your application, our system administrator was unable to approve it at this time.</p> 
+    <p>To proceed, the admin will reach out to you shortly to request additional information or clarification. Please keep an eye on your inbox for further communication.</p>
+    <p>We appreciate your patience and cooperation. If you have any questions in the meantime, feel free to reach out.</p>
+    <br>
     <b> Regards, </b> <br>
-    EEA System Admin
+    Eswatini MSME Platform Admin
     <br><br>
-    <b> Eswatini Environment Authority </b><br>
-    RHUS Office Park<br>
-    Karl Grant Street<br>
-    Mbabane<br>
-    Eswatini<br>
-    Email: systems@eea.org.sz <br>
-    Tell: +268 2404 6960/7893 <br>
-    Cell: +268 7854 6907 or 7806 1658 <br>
+    <b> Eswatini MSME Platform Admin </b><br>
+    Email: To be added later <br>
+    Tell: To be added later <br>
+    Cell: To be added later <br>
     <br><br><br>
     <p style="color:red;"> *This is a system generated message, please do not reply to this email.</p>
     </body>
@@ -394,7 +392,7 @@ const managerEmailTemplate = (payload) =>
 
 
 module.exports = {
-    ragistrationEmailHospital,
+    ragistrationEmail,
     ragistrationEmailNurse,
     resetPasswordRequest,
     passwordReseted,

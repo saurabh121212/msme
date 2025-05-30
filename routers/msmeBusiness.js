@@ -36,11 +36,11 @@ router.put('/verify-msme/:id',[
 
 
 router.get('/search-by-name/:name_of_organization',[
-],authMiddleware.authAdmin, MSMEBusinessController.searchByName);
+], MSMEBusinessController.searchByName);
 
 
 router.get('/search-by-region/:region',[
-],authMiddleware.authAdmin, MSMEBusinessController.searchByRegion);
+], MSMEBusinessController.searchByRegion);
 
 
 router.put('/delete/:id',authMiddleware.authAdmin, MSMEBusinessController.delete);

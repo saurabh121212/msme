@@ -1,6 +1,7 @@
 const BaseRepo = require('../services/BaseRepository');
 const { MSMEBusinessModel, DirectorsInfoModel } = require('../models');
 const { validationResult } = require('express-validator');
+const sendEmail = require('../mailer/mailerFile');
 
 
 module.exports.add = async (req, res, next) => {
@@ -36,6 +37,10 @@ module.exports.add = async (req, res, next) => {
         if (!directorsInfoValues) {
             return res.status(400).json({ error: 'Error creating MSME Business' });
         }
+
+        // Send email to the user
+        sendEmail(msmeData,1,msmeData.email_address);
+
         res.status(201).json(
             {
                  message: "MSME and directors saved successfully",
@@ -216,6 +221,10 @@ module.exports.verifyMSME = async (req, res, next) => {
         if (!Business) {
             return res.status(400).json({ error: 'Error updating MSME Business' });
         }
+
+        // Send email to the user
+        sendEmail("",payload.is_verified,payload.email_address);
+
         res.status(201).json({
             message: 'MSME Business updated successfully',
             data: Business

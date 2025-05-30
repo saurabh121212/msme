@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer');
 const emailTemplate = require('./emailTemplate')
 const CONFIG     = require("../config/config");
 
-// Email id :- metweatherapplication@gmail.com
+// Email id :- undpmsme2025@gmail.com
 // Password :- Saurabh@123
 
     let subject;
@@ -14,18 +14,18 @@ async function sendEmail(payload,status,email) {
 
     if(status==1)
     {
-         subject = `Eswatini Meteorological Service Early Warning System – OTP Verification`
-         output = emailTemplate.ragistrationEmailHospital(payload);
+         subject = `Registration Request Received by Eswatini MSME Platform`
+         output = emailTemplate.ragistrationEmail(payload);
     }
     if(status==2)
     {
-         subject = `Success! You have been registered with the EDEFS Image Management and Reporting portal`
-         output = emailTemplate.ragistrationEmailNurse(payload);
+         subject = `Registration Request Approved by Eswatini MSME Administrator`
+         output = emailTemplate.userApprovedEmailTemplate(payload);
     }
     if(status==3)
     {
-         subject = `Request For Reset Password`
-         output = emailTemplate.resetPasswordRequest(payload);
+         subject = `Registration Request Update`
+         output = emailTemplate.userRejectedEmailTemplate(payload);
     }
 
     if(status==4)
