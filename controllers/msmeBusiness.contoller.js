@@ -10,6 +10,14 @@ module.exports.add = async (req, res, next) => {
         return res.status(400).json({ error: error.array() });
     }
     const { directorsInfo, ...msmeData } = req.body;
+
+    console.log("msmeData ==> ", msmeData);
+
+    const isEmailExist = await MSMEBusinessModel.findOne({ where: {  email_address: msmeData.email_address }});
+    if(isEmailExist){
+        return res.status(400).json({error: 'Email ID already exists'});
+    }
+
     const hashedPassword = await MSMEBusinessModel.hashPassword(msmeData.password.toString());
     msmeData.password = hashedPassword;
 
@@ -145,17 +153,23 @@ module.exports.update = async (req, res, next) => {
         return res.status(400).json({ error: error.array() });
     }
 
-    const payload = req.body;
+    const { directorsInfo, ...msmeData } = req.body;
     const id = req.params.id;
 
     try {
-        const BusinessCategories = await BaseRepo.baseUpdate(MSMEBusinessModel, { id }, payload);
-        if (!BusinessCategories) {
-            return res.status(400).json({ error: 'Error updating Business Categories' });
+        const MSMEBusiness = await BaseRepo.baseUpdate(MSMEBusinessModel, { id }, msmeData);
+        if (!MSMEBusiness) {
+            return res.status(400).json({ error: 'Error updating MSME Business' });
         }
+
+    //    const directorsInfo = await BaseRepo.baseUpdate(MSMEBusinessModel, { business_id:id }, directorsInfo);
+    //     if (!directorsInfo) {
+    //         return res.status(400).json({ error: 'Error updating directors info' });
+    //     }
+
         res.status(201).json({
-            message: 'Business Categories updated successfully',
-            data: BusinessCategories
+            message: 'MSME Business updated successfully',
+            data: MSMEBusiness
         });
     }
     catch (error) {
@@ -265,3 +279,26 @@ module.exports.searchByRegion = async (req, res, next) => {
     }
 }
 
+
+module.exports.loginUser = async (req, res, next) => {
+    const error = validationResult(req);
+    if (!error.isEmpty()) {
+        return res.status(400).json({ error: error.array() });
+    }
+    const {email_address, password } = req.body;
+
+    const user = await MSMEBusinessModel.findOne({ where: {email_address}});
+    if (!user) {
+        return res.status(400).json({ error: 'Invalid email or password 1' });
+    }
+    
+    console.log("user 1",user);
+
+    const isMatch = await user.comparePassword(password); 
+    if (!isMatch) {
+        return res.status(400).json({ error: 'Invalid email or password 2' });
+    }
+    const token = await user.generateAuthToken(); // ✅ instance method
+    res.status(200).json({ user, token });
+
+};
