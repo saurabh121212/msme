@@ -233,14 +233,14 @@ async function getWeatherDataFromDate(modal, locationId, startDate) {
 
 
 
-  async function getSearchByLocation(modal, location_name, startDate) {
+  async function getSearchByLocation(modal, name_of_organization) {
     try {
       const results = await modal.findAll({
         where: {
           deletedAt: null,
-          date: startDate,
-          location_name: {
-            [Op.like]: location_name+'%', // e.g., 'Ro%' or '%Ro%'
+          is_verified: 2,
+          name_of_organization: {
+            [Op.like]: name_of_organization+'%', // e.g., 'Ro%' or '%Ro%'
           }
         },
         // order: [['id', 'DESC']],

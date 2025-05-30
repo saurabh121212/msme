@@ -212,3 +212,56 @@ module.exports.verifyMSME = async (req, res, next) => {
         return res.status(500).json({ error: 'Internal server error' });
     }
 }
+
+module.exports.searchByName = async (req, res, next) => {
+
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const offset = (page - 1) * limit;
+
+    const name_of_organization = req.params.name_of_organization;
+
+    console.log("name_of_organization ==> ", name_of_organization);
+
+    try {
+        const msmeInfo = await BaseRepo.getSearchByLocation(MSMEBusinessModel, name_of_organization);
+        if (!msmeInfo) {
+            return res.status(400).json({ error: 'Error fetching Business Categories' });
+        }
+        res.status(201).json(msmeInfo);
+    }
+    catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+
+module.exports.searchByRegion = async (req, res, next) => {
+
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const offset = (page - 1) * limit;
+
+    const region = req.params.region;
+
+    const params = {
+        searchParams: {region: region},
+        limit: limit,
+        offset: offset,
+        page: page,
+        order: [["id", "DESC"]],
+    }
+    try {
+        const msmeInfo = await BaseRepo.baseList(MSMEBusinessModel, params);
+        if (!msmeInfo) {
+            return res.status(400).json({ error: 'Error fetching MSME Business' });
+        }
+        res.status(201).json(msmeInfo);
+    }
+    catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+}
+

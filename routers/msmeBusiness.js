@@ -28,6 +28,14 @@ router.put('/verify-msme/:id',[
 ],authMiddleware.authAdmin, MSMEBusinessController.verifyMSME);
 
 
+router.get('/search-by-name/:name_of_organization',[
+],authMiddleware.authAdmin, MSMEBusinessController.searchByName);
+
+
+router.get('/search-by-region/:region',[
+],authMiddleware.authAdmin, MSMEBusinessController.searchByRegion);
+
+
 router.put('/delete/:id',authMiddleware.authAdmin, MSMEBusinessController.delete);
 
 
