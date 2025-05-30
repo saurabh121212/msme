@@ -18,6 +18,10 @@ router.post('/service-provider-categories-image',  uploader("image", 20, "servic
 
 router.post('/service-providers-image',  uploader("image", 20, "serviceProvidersImage").single("file"), FileController.uploadFile);
 
+router.post('/business-image',  uploader("image", 20, "businessImage").single("file"), FileController.uploadFile);
+
+router.post('/business-profile',  uploader("document", 20, "businessProfile").single("file"), FileController.uploadFile);
+
 
 // router.post('/gallery-image', uploader("image", 20, "galleryImage").array("file",15), FileController.uploadMultipleFiles);
 

@@ -105,7 +105,7 @@ module.exports = (sequelize, DataTypes) => {
             minlength: [5, 'Password Must be at least 5 characters long'],
         },
         is_verified: {
-            type: DataTypes.BOOLEAN,
+            type: DataTypes.STRING(20),
             allowNull: false, // or false if required
         },
 

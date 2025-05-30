@@ -184,3 +184,31 @@ module.exports.delete = async (req, res, next) => {
         return res.status(500).json({ error: 'Internal server error' });
     }
 }
+
+
+
+module.exports.verifyMSME = async (req, res, next) => {
+
+    const error = validationResult(req);
+    if (!error.isEmpty()) {
+        return res.status(400).json({ error: error.array() });
+    }
+
+    const payload = req.body;
+    const id = req.params.id;
+
+    try {
+        const Business = await BaseRepo.baseUpdate(MSMEBusinessModel, { id }, payload);
+        if (!Business) {
+            return res.status(400).json({ error: 'Error updating MSME Business' });
+        }
+        res.status(201).json({
+            message: 'MSME Business updated successfully',
+            data: Business
+        });
+    }
+    catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+}

@@ -15,7 +15,8 @@ const storeDestination = {
     'downloadsFile': "downloads/",
     'serviceProviderCategoriesImage': "service-provider-categories/",
     'serviceProvidersImage': "service-providers/",
-
+    'businessImage': "business/",
+    'businessProfile': "business-profile/",
 }
 
 module.exports =  (fileType, fileSize, filePath) => {

@@ -22,6 +22,12 @@ router.get('/list-according-category-id/:business_category_id', MSMEBusinessCont
 
 router.get('/msme-details/:id', MSMEBusinessController.getMSMEDetails);
 
+
+// Verify MSME Business
+router.put('/verify-msme/:id',[
+],authMiddleware.authAdmin, MSMEBusinessController.verifyMSME);
+
+
 router.put('/delete/:id',authMiddleware.authAdmin, MSMEBusinessController.delete);
 
 
