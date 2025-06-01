@@ -101,9 +101,33 @@ module.exports.delete = async (req, res, next) => {
 }
 
 module.exports.getById = async (req, res, next) => {
-    const categorie_id = req.params.categorie_id;
-    try {
-    const data = await BaseRepo.baseFindAllById(ServiceProvidersModel, categorie_id ,"categorie_id");
+    // const categorie_id = req.params.categorie_id;
+    // try {
+    // const data = await BaseRepo.baseFindAllById(ServiceProvidersModel, categorie_id ,"categorie_id");
+    // if(!data){
+    //     return res.status(400).json({error: 'Error fetching Service Providers'});
+    // }
+    // res.status(201).json(data);
+    // } 
+    // catch (error) {
+    // console.error(error);
+    // return res.status(500).json({error: 'Internal server error'});
+    // }
+
+
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const offset = (page - 1) * limit;
+
+    const params = {
+      searchParams: {categorie_id: categorie_id},
+      limit: limit,
+      offset: offset,
+      page: page,
+      order:[["id","DESC"]],
+  }
+  try {
+    const data = await BaseRepo.baseList(ServiceProvidersModel, params);
     if(!data){
         return res.status(400).json({error: 'Error fetching Service Providers'});
     }
@@ -113,4 +137,5 @@ module.exports.getById = async (req, res, next) => {
     console.error(error);
     return res.status(500).json({error: 'Internal server error'});
     }
+
 }
