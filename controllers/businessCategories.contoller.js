@@ -99,3 +99,34 @@ module.exports.deleteWeatherCategories = async (req, res, next) => {
     return res.status(500).json({error: 'Internal server error'});
     }
 }
+
+
+module.exports.searchBusinessCategories = async (req, res, next) => {
+
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const offset = (page - 1) * limit;
+    const name = req.query.name || null;
+
+    const params = {
+        searchParams: {},
+        limit: limit,
+        offset: offset,
+        page: page,
+        order: [["id", "DESC"]],
+    }
+
+    console.log(name);
+
+    try {
+        const WeatherDataRequest = await BaseRepo.getSearchData(BusinessCategoriesModel,name,"name");
+        if (!WeatherDataRequest) {
+            return res.status(400).json({ error: 'Error fetching Business Categories' });
+        }
+        res.status(201).json(WeatherDataRequest);
+    }
+    catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+}

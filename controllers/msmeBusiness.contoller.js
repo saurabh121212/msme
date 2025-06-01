@@ -12,7 +12,7 @@ module.exports.add = async (req, res, next) => {
     }
     const { directorsInfo, ...msmeData } = req.body;
 
-    console.log("msmeData ==> ", msmeData);
+    // console.log("msmeData ==> ", msmeData);
 
     const isEmailExist = await MSMEBusinessModel.findOne({ where: {  email_address: msmeData.email_address }});
     if(isEmailExist){
@@ -135,7 +135,7 @@ module.exports.getMSMEDetails = async (req, res, next) => {
             return res.status(400).json({ error: 'Error fetching MSME details' });
         }
 
-        console.log("msmeDetails ==> ", msmeDetails.dataValues.id);
+        // console.log("msmeDetails ==> ", msmeDetails.dataValues.id);
         
         const directorsDetail = await BaseRepo.baseFindAllById(DirectorsInfoModel, msmeDetails.dataValues.id, "business_id");
         if (!directorsDetail) {
@@ -244,7 +244,7 @@ module.exports.searchByName = async (req, res, next) => {
 
     const name_of_organization = req.params.name_of_organization;
 
-    console.log("name_of_organization ==> ", name_of_organization);
+    // console.log("name_of_organization ==> ", name_of_organization);
 
     try {
         const msmeInfo = await BaseRepo.getSearchByLocation(MSMEBusinessModel, name_of_organization);
@@ -372,7 +372,7 @@ module.exports.loginUser = async (req, res, next) => {
         return res.status(400).json({ error: 'Invalid email or password 1' });
     }
     
-    console.log("user 1",user);
+    // console.log("user 1",user);
 
     const isMatch = await user.comparePassword(password); 
     if (!isMatch) {

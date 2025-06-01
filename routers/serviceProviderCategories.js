@@ -23,5 +23,10 @@ router.put('/update/:id',[
 router.get('/list', serviceProviderCategoriesController.get);
 router.put('/delete/:id',authMiddleware.authAdmin, serviceProviderCategoriesController.delete);
 
+router.get('/search_by_name', serviceProviderCategoriesController.searchServiceProviderCategories);
+
+
+
+
 
 module.exports = router;

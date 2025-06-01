@@ -21,5 +21,7 @@ router.put('/update/:id',[
 router.get('/list', businessCategoriesController.getWeatherCategories);
 router.put('/delete/:id',authMiddleware.authAdmin, businessCategoriesController.deleteWeatherCategories);
 
+router.get('/search_by_name', businessCategoriesController.searchBusinessCategories);
+
 
 module.exports = router;

@@ -35,5 +35,7 @@ router.get('/list', serviceProvidersController.get);
 router.get('/list/:categorie_id', serviceProvidersController.getById);
 router.put('/delete/:id',authMiddleware.authAdmin, serviceProvidersController.delete);
 
+router.get('/search_by_name', serviceProvidersController.searchServiceProvider);
+
 
 module.exports = router;

@@ -22,7 +22,8 @@ module.exports = {
     getAlartsByDate: getAlartsByDate,
     getDashboardAlarts: getDashboardAlarts,
     getDashboardWeatherDataRequests: getDashboardWeatherDataRequests,
-    findToken_User:findToken_User
+    findToken_User:findToken_User,
+    getSearchData: getSearchData,
 };
 
 function create(modal, data) {
@@ -208,6 +209,25 @@ function deleteEntry(modal, searchParams) {
 
 function baseRestore(modal, searchParams) {
     return modal.restore({ where: searchParams });
+}
+
+
+async function getSearchData(modal, Value, Key) {
+  try {
+    const results = await modal.findAll({
+      where: {
+        deletedAt: null,
+        [Key]: {
+          [Op.like]: Value + '%', // e.g., 'Ro%' or '%Ro%'
+        }
+      },
+      // order: [['id', 'DESC']],
+    });
+    return results;
+  } catch (error) {
+    console.error('Error fetching weather data:', error);
+    throw error;
+  }
 }
 
 
