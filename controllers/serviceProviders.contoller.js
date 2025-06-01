@@ -101,7 +101,6 @@ module.exports.delete = async (req, res, next) => {
 }
 
 module.exports.getById = async (req, res, next) => {
-    // const categorie_id = req.params.categorie_id;
     // try {
     // const data = await BaseRepo.baseFindAllById(ServiceProvidersModel, categorie_id ,"categorie_id");
     // if(!data){
@@ -118,6 +117,8 @@ module.exports.getById = async (req, res, next) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const offset = (page - 1) * limit;
+
+    const categorie_id = req.params.categorie_id;
 
     const params = {
       searchParams: {categorie_id: categorie_id},
