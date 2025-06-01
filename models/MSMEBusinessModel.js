@@ -43,6 +43,12 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(50),
             allowNull: true, // or false if required
         },
+
+        owner_type: {
+            type: DataTypes.STRING(50),
+            allowNull: true, // or false if required
+        },
+
         disability_owned: {
             type: DataTypes.STRING(20),
             allowNull: true, // or false if required
