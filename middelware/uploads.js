@@ -2,7 +2,7 @@
 
 const {Multer} = require('../services/multer')
 const mimeTypes = {
-    'image': ['image/jpg', 'image/jpeg', 'image/png', 'image/svg'],
+    'image': ['image/jpg', 'image/jpeg', 'image/png', 'image/svg','image/svg+xml'],
     'document': ['application/pdf','application/msword', "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.ms-powerpoint", "application/vnd.openxmlformats-officedocument.presentationml.presentation"],
 }
 
