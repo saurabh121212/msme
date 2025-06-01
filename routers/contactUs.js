@@ -13,7 +13,7 @@ router.post('/add',[
     body('email').isLength({min: 3}).withMessage('Email must be at least 3 characters long'),
     body('subject').isLength({min: 3}).withMessage('Subject must be at least 3 characters long'),
     body('message').isLength({min: 3}).withMessage('Discription must be at least 3 characters long'),
-],authMiddleware.authUser, ContactUsController.add);
+], ContactUsController.add);
 
 // router.put('/update/:id',[
 //     body('name').isLength({min: 3}).withMessage('name must be at least 3 characters long'),
