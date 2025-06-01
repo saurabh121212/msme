@@ -289,6 +289,77 @@ module.exports.searchByRegion = async (req, res, next) => {
 }
 
 
+
+
+module.exports.filtersAPI = async (req, res, next) => {
+
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const offset = (page - 1) * limit;
+
+     const filters = {
+            business_category_id: req.query.business_category_id,
+            region: req.query.region,
+            disability_owned: req.query.disability_owned,
+            turnover: req.query.turnover,
+            ownerType: req.query.ownerType,
+            business_type: req.query.business_type,
+        };
+
+        const searchParams = {};
+
+        if (filters.business_category_id && filters.business_category_id !== 'All') {
+            searchParams.business_category_id = filters.business_category_id;
+        }
+
+        if (filters.location && filters.location !== 'All') {
+            searchParams.location = filters.location;
+        }
+
+        if (filters.impair === 'Yes') {
+            searchParams.impair = "Yes";
+        } else if (filters.impair === 'No') {
+            searchParams.impair = "No";
+        }
+
+        // if (filters.turnover) {
+        //     searchParams.annualTurnover = {
+        //         [Op.lte]: filters.turnover
+        //     };
+        // }
+
+        if (filters.ownerType && filters.ownerType !== 'All') {
+            searchParams.ownerType = filters.ownerType;
+        }
+
+        if (filters.businessType === 'Registered') {
+            searchParams.isRegistered = "Registered";
+        } else if (filters.businessType === 'Unregistered') {
+            searchParams.isRegistered = "Unregistered";
+        }
+
+
+    const params = {
+        searchParams,
+        limit: limit,
+        offset: offset,
+        page: page,
+        order: [["id", "DESC"]],
+    }
+    try {
+        const msmeInfo = await BaseRepo.baseList(MSMEBusinessModel, params);
+        if (!msmeInfo) {
+            return res.status(400).json({ error: 'Error fetching MSME Business' });
+        }
+        res.status(201).json(msmeInfo);
+    }
+    catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+
 module.exports.loginUser = async (req, res, next) => {
     const error = validationResult(req);
     if (!error.isEmpty()) {

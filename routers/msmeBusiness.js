@@ -21,7 +21,7 @@ router.post('/login',[
 
 router.put('/update/:id',[
     body('name_of_organization').isLength({min: 3}).withMessage('Name must be at least 3 characters long'),
-],authMiddleware.authAdmin, MSMEBusinessController.update);
+],authMiddleware.authUser, MSMEBusinessController.update);
 
 // Done 
 router.get('/list', MSMEBusinessController.get);
@@ -38,14 +38,13 @@ router.put('/verify-msme/:id',[
 router.get('/search-by-name/:name_of_organization',[
 ], MSMEBusinessController.searchByName);
 
-
 router.get('/search-by-region/:region',[
 ], MSMEBusinessController.searchByRegion);
 
+router.get('/filters',[
+], MSMEBusinessController.filtersAPI);
+
 
 router.put('/delete/:id',authMiddleware.authAdmin, MSMEBusinessController.delete);
-
-
-
 
 module.exports = router;
