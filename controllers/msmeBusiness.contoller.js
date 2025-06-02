@@ -14,9 +14,9 @@ module.exports.add = async (req, res, next) => {
 
     // console.log("msmeData ==> ", msmeData);
 
-    const isEmailExist = await MSMEBusinessModel.findOne({ where: {  email_address: msmeData.email_address }});
-    if(isEmailExist){
-        return res.status(400).json({error: 'Email ID already exists'});
+    const isEmailExist = await MSMEBusinessModel.findOne({ where: { email_address: msmeData.email_address } });
+    if (isEmailExist) {
+        return res.status(400).json({ error: 'Email ID already exists' });
     }
 
     const hashedPassword = await MSMEBusinessModel.hashPassword(msmeData.password.toString());
@@ -39,16 +39,16 @@ module.exports.add = async (req, res, next) => {
         }
 
         // Send email to the user
-        sendEmail(msmeData,1,msmeData.email_address);
+        sendEmail(msmeData, 1, msmeData.email_address);
 
         res.status(201).json(
             {
-                 message: "MSME and directors saved successfully",
-                 data: {
-                        msme: msme,
-                        directors: directorsInfoValues
-                    }
-         });
+                message: "MSME and directors saved successfully",
+                data: {
+                    msme: msme,
+                    directors: directorsInfoValues
+                }
+            });
     }
     catch (error) {
         console.error(error);
@@ -94,7 +94,7 @@ module.exports.getListAccordingToCategoryId = async (req, res, next) => {
     const business_category_id = req.params.business_category_id;
 
     const params = {
-        searchParams: {business_category_id: business_category_id},
+        searchParams: { business_category_id: business_category_id },
         limit: limit,
         offset: offset,
         page: page,
@@ -136,12 +136,12 @@ module.exports.getMSMEDetails = async (req, res, next) => {
         }
 
         // console.log("msmeDetails ==> ", msmeDetails.dataValues.id);
-        
+
         const directorsDetail = await BaseRepo.baseFindAllById(DirectorsInfoModel, msmeDetails.dataValues.id, "business_id");
         if (!directorsDetail) {
             return res.status(400).json({ error: 'Error fetching directors details' });
         }
-        res.status(201).json({msmeDetails, directorsDetail});
+        res.status(201).json({ msmeDetails, directorsDetail });
     }
     catch (error) {
         console.error(error);
@@ -167,10 +167,10 @@ module.exports.update = async (req, res, next) => {
             return res.status(400).json({ error: 'Error updating MSME Business' });
         }
 
-    //    const directorsInfo = await BaseRepo.baseUpdate(MSMEBusinessModel, { business_id:id }, directorsInfo);
-    //     if (!directorsInfo) {
-    //         return res.status(400).json({ error: 'Error updating directors info' });
-    //     }
+        //    const directorsInfo = await BaseRepo.baseUpdate(MSMEBusinessModel, { business_id:id }, directorsInfo);
+        //     if (!directorsInfo) {
+        //         return res.status(400).json({ error: 'Error updating directors info' });
+        //     }
 
         res.status(201).json({
             message: 'MSME Business updated successfully',
@@ -223,7 +223,7 @@ module.exports.verifyMSME = async (req, res, next) => {
         }
 
         // Send email to the user
-        sendEmail("",payload.is_verified,payload.email_address);
+        sendEmail("", payload.is_verified, payload.email_address);
 
         res.status(201).json({
             message: 'MSME Business updated successfully',
@@ -269,7 +269,7 @@ module.exports.searchByRegion = async (req, res, next) => {
     const region = req.params.region;
 
     const params = {
-        searchParams: {region: region},
+        searchParams: { region: region },
         limit: limit,
         offset: offset,
         page: page,
@@ -297,46 +297,46 @@ module.exports.filtersAPI = async (req, res, next) => {
     const limit = parseInt(req.query.limit) || 10;
     const offset = (page - 1) * limit;
 
-     const filters = {
-            business_category_id: req.query.business_category_id,
-            region: req.query.region,
-            disability_owned: req.query.disability_owned,
-            turnover: req.query.turnover,
-            ownerType: req.query.ownerType,
-            business_type: req.query.business_type,
-        };
+    const filters = {
+        business_category_id: req.query.business_category_id,
+        region: req.query.region,
+        disability_owned: req.query.disability_owned,
+        turnover: req.query.turnover,
+        ownerType: req.query.ownerType,
+        business_type: req.query.business_type,
+    };
 
-        const searchParams = {};
+    const searchParams = {};
 
-        if (filters.business_category_id && filters.business_category_id !== 'All') {
-            searchParams.business_category_id = filters.business_category_id;
-        }
+    if (filters.business_category_id && filters.business_category_id !== 'All') {
+        searchParams.business_category_id = filters.business_category_id;
+    }
 
-        if (filters.location && filters.location !== 'All') {
-            searchParams.location = filters.location;
-        }
+    if (filters.location && filters.location !== 'All') {
+        searchParams.location = filters.location;
+    }
 
-        if (filters.impair === 'Yes') {
-            searchParams.impair = "Yes";
-        } else if (filters.impair === 'No') {
-            searchParams.impair = "No";
-        }
+    if (filters.impair === 'Yes') {
+        searchParams.impair = "Yes";
+    } else if (filters.impair === 'No') {
+        searchParams.impair = "No";
+    }
 
-        // if (filters.turnover) {
-        //     searchParams.annualTurnover = {
-        //         [Op.lte]: filters.turnover
-        //     };
-        // }
+    // if (filters.turnover) {
+    //     searchParams.annualTurnover = {
+    //         [Op.lte]: filters.turnover
+    //     };
+    // }
 
-        if (filters.ownerType && filters.ownerType !== 'All') {
-            searchParams.ownerType = filters.ownerType;
-        }
+    if (filters.ownerType && filters.ownerType !== 'All') {
+        searchParams.ownerType = filters.ownerType;
+    }
 
-        if (filters.businessType === 'Registered') {
-            searchParams.isRegistered = "Registered";
-        } else if (filters.businessType === 'Unregistered') {
-            searchParams.isRegistered = "Unregistered";
-        }
+    if (filters.businessType === 'Registered') {
+        searchParams.isRegistered = "Registered";
+    } else if (filters.businessType === 'Unregistered') {
+        searchParams.isRegistered = "Unregistered";
+    }
 
 
     const params = {
@@ -365,16 +365,16 @@ module.exports.loginUser = async (req, res, next) => {
     if (!error.isEmpty()) {
         return res.status(400).json({ error: error.array() });
     }
-    const {email_address, password } = req.body;
+    const { email_address, password } = req.body;
 
-    const user = await MSMEBusinessModel.findOne({ where: {email_address}});
+    const user = await MSMEBusinessModel.findOne({ where: { email_address } });
     if (!user) {
         return res.status(400).json({ error: 'Invalid email or password 1' });
     }
-    
+
     // console.log("user 1",user);
 
-    const isMatch = await user.comparePassword(password); 
+    const isMatch = await user.comparePassword(password);
     if (!isMatch) {
         return res.status(400).json({ error: 'Invalid email or password 2' });
     }
@@ -382,3 +382,111 @@ module.exports.loginUser = async (req, res, next) => {
     res.status(200).json({ user, token });
 
 };
+
+
+
+module.exports.forgetPasswordSendEmail = async (req, res, next) => {
+
+    const error = validationResult(req);
+    if (!error.isEmpty()) {
+        return res.status(400).json({ error: error.array() });
+    }
+
+    let payload;
+    const email_address = req.params.email_address;
+
+    const isEmailExist = await MSMEBusinessModel.findOne({ where: { email_address: email_address } });
+    if (!isEmailExist) {
+        return res.status(400).json({ error: 'Invalid email address' });
+    }
+
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    const otp_expiry = new Date(Date.now() + 10 * 60000); // 10 minutes from now
+
+    payload = { otp: otp, otp_expiry: otp_expiry };
+
+    try {
+        const Business = await BaseRepo.baseUpdate(MSMEBusinessModel, { email_address }, payload);
+        if (!Business) {
+            return res.status(400).json({ error: 'Error updating MSME Business' });
+        }
+
+        // Send email to the user
+        sendEmail(payload, 4, email_address);
+
+        res.status(201).json({
+            message: 'OTP sent successfully',
+            data: Business
+        });
+    }
+    catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+
+
+module.exports.forgetPasswordVerifyOTP = async (req, res, next) => {
+
+    const error = validationResult(req);
+    if (!error.isEmpty()) {
+        return res.status(400).json({ error: error.array() });
+    }
+
+    let payload;
+    const email_address = req.params.email_address;
+    const otp = req.params.otp;
+
+    try {
+    const record = await MSMEBusinessModel.findOne({ where: { email_address: email_address, otp: otp } });
+    if (!record || record.otp_expiry < new Date()) {
+        return res.status(400).json({ message: "Invalid or expired OTP" });
+    }
+        res.status(201).json({
+            message: 'OTP verified successfully',
+        });
+    }
+    catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+
+
+module.exports.forgetPassword = async (req, res, next) => {
+
+    const error = validationResult(req);
+    if (!error.isEmpty()) {
+        return res.status(400).json({ error: error.array() });
+    }
+
+    let payload;
+    const email_address = req.params.email_address;
+    const password = req.params.password;
+
+    const isEmailExist = await MSMEBusinessModel.findOne({ where: { email_address: email_address } });
+    if (!isEmailExist) {
+        return res.status(400).json({ error: 'Invalid email address' });
+    }
+    const hashedPassword = await MSMEBusinessModel.hashPassword(password.toString());
+
+    payload = { password: hashedPassword, otp: null, otp_expiry: null };
+
+    try {
+        const Business = await BaseRepo.baseUpdate(MSMEBusinessModel, { email_address }, payload);
+        if (!Business) {
+            return res.status(400).json({ error: 'Error updating MSME Business' });
+        }
+
+        res.status(201).json({
+            message: 'Reset password successfully',
+            data: Business
+        });
+    }
+    catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+}

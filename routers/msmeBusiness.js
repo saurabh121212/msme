@@ -47,4 +47,18 @@ router.get('/filters',[
 
 router.put('/delete/:id',authMiddleware.authAdmin, MSMEBusinessController.delete);
 
+
+// This API is used to send an OTP to the user's email address for password reset
+router.put('/forget-password-send-otp/:email_address',[
+], MSMEBusinessController.forgetPasswordSendEmail);
+
+// This API is used to verify the OTP sent to the user's email address for password reset
+router.put('/forget-password-otp-verify/:email_address/:otp',[
+], MSMEBusinessController.forgetPasswordVerifyOTP);
+
+// This API is used to reset the user's password after verifying the OTP
+router.put('/forget-password/:email_address/:password',[
+], MSMEBusinessController.forgetPassword);
+
+
 module.exports = router;

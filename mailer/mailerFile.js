@@ -30,8 +30,8 @@ async function sendEmail(payload,status,email) {
 
     if(status==4)
     {
-         subject = `Reset Password Successfully`
-         output = emailTemplate.passwordReseted(payload);
+         subject = `OTP for Password Reset`
+         output = emailTemplate.passwordResetOTPSend(payload);
     }
 
     // else if(status == 2)

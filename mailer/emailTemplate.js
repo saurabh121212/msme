@@ -153,7 +153,7 @@ const resetPasswordRequest = (payload, email) =>
 
 
 // Password Sussesfully Reset Email
-const passwordReseted = (payload, email) =>
+const passwordResetOTPSend = (payload, email) =>
     `<html>
 <head>
     <title></title>
@@ -162,26 +162,24 @@ const passwordReseted = (payload, email) =>
     <!-- Take only this part for email -->
    
     <b>Dear User,</b> <br>
-    <p>Your Password is successfully resened try to login with the new password know</p> 
-    <br>
+    <p>We received a request to reset the password for your account.</p> 
+    <p>Your One-Time Password (OTP) is:</p>
+    ${payload.otp}
+    <p>This OTP is valid for 10 minutes. Please do not share this code with anyone.</p>
+    <p>If you did not request this, please ignore this email.</p>
+
     <br> <br>
-    <b> Regards, </b> <br> 
-    Ministry of Health Kingdom of Eswatini
+    <b> Regards, </b> <br>
+    Eswatini MSME Platform Admin
     <br><br>
-    <b> Ministry of Health Kingdom of Eswatini
-    </b><br>
-    RHUS Office Park<br>
-    Karl Grant Street<br>
-    Mbabane<br>
-    Eswatini<br>
-    Email: systems@eea.org.sz <br>
-    Tell: +268 2404 6960/7893 <br>
-    Cell: +268 7854 6907 or 7806 1658 <br>
+    <b> Eswatini MSME Platform Admin </b><br>
+    Email: To be added later <br>
+    Tell: To be added later <br>
+    Cell: To be added later <br>
     <br><br><br>
     <p style="color:red;"> *This is a system generated message, please do not reply to this email.</p>
     </body>
     </html>`
-
 
 
 // Ragister User Apprvle
@@ -395,7 +393,7 @@ module.exports = {
     ragistrationEmail,
     ragistrationEmailNurse,
     resetPasswordRequest,
-    passwordReseted,
+    passwordResetOTPSend,
 
     RTRRejectedEmailTemplate,
     RTRApprovedEmailTemplate,

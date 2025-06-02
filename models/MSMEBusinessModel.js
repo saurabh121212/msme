@@ -115,6 +115,15 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false, // or false if required
         },
 
+        otp: {
+            type: DataTypes.STRING(20),
+            allowNull: true, // or false if required
+        },
+        otp_expiry: {
+            type: DataTypes.DATE,
+            allowNull: true, // or false if required
+        },
+
     }, {
         paranoid: true,
         timestamps: true,
