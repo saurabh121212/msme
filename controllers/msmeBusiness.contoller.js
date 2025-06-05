@@ -1,3 +1,5 @@
+const { Sequelize, QueryTypes } = require('sequelize');
+const Op = Sequelize.Op;
 const BaseRepo = require('../services/BaseRepository');
 const { MSMEBusinessModel, DirectorsInfoModel } = require('../models');
 const { validationResult } = require('express-validator');
