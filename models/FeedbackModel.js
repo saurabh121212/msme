@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
         },
 
         message: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT('long'),
             allowNull: false, // or false if required
             minlength: [3, 'description must be at least 3 characters long'],
         },
