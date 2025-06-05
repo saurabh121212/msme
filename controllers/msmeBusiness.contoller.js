@@ -361,7 +361,7 @@ module.exports.filtersAPI = async (req, res, next) => {
 
 
     if (filters.turnover) {
-        searchParams.annualTurnover = {
+        searchParams.turnover = {
             [Op.lte]: filters.turnover
         };
     }
