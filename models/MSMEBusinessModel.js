@@ -124,6 +124,15 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true, // or false if required
         },
 
+        lat: {
+            type: DataTypes.STRING(100),
+            allowNull: true, // or false if required
+        },
+        longe: {
+            type: DataTypes.STRING(100),
+            allowNull: true, // or false if required
+        },
+
     }, {
         paranoid: true,
         timestamps: true,
