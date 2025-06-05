@@ -260,7 +260,7 @@ async function getWeatherDataFromDate(modal, locationId, startDate) {
           deletedAt: null,
           is_verified: 2,
           name_of_organization: {
-            [Op.like]: name_of_organization+'%', // e.g., 'Ro%' or '%Ro%'
+            [Op.like]: '%'+name_of_organization+'%', // e.g., 'Ro%' or '%Ro%'
           }
         },
         // order: [['id', 'DESC']],
