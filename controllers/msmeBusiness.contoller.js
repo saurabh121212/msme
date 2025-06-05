@@ -317,8 +317,6 @@ module.exports.searchByRegion = async (req, res, next) => {
 }
 
 
-
-
 module.exports.filtersAPI = async (req, res, next) => {
 
     const page = parseInt(req.query.page) || 1;
@@ -336,35 +334,45 @@ module.exports.filtersAPI = async (req, res, next) => {
 
     const searchParams = {};
 
+
+
     if (filters.business_category_id && filters.business_category_id !== 'All') {
         searchParams.business_category_id = filters.business_category_id;
     }
 
-    if (filters.location && filters.location !== 'All') {
-        searchParams.location = filters.location;
+    if (filters.region && filters.region !== 'All') {
+        searchParams.region = filters.region;
     }
 
-    if (filters.impair === 'Yes') {
-        searchParams.impair = "Yes";
-    } else if (filters.impair === 'No') {
-        searchParams.impair = "No";
+    if (filters.disability_owned === 'Yes') {
+        searchParams.disability_owned = "Yes";
+    } else if (filters.disability_owned === 'No') {
+        searchParams.disability_owned = "No";
     }
 
-    // if (filters.turnover) {
-    //     searchParams.annualTurnover = {
-    //         [Op.lte]: filters.turnover
-    //     };
-    // }
+
+    if (filters.business_type === 'Yes') {
+        searchParams.business_type = "Yes";
+    } else if (filters.business_type === 'No') {
+        searchParams.business_type = "No";
+    }
+
+
+    if (filters.turnover) {
+        searchParams.annualTurnover = {
+            [Op.lte]: filters.turnover
+        };
+    }
 
     if (filters.ownerType && filters.ownerType !== 'All') {
         searchParams.ownerType = filters.ownerType;
     }
 
-    if (filters.businessType === 'Registered') {
-        searchParams.isRegistered = "Registered";
-    } else if (filters.businessType === 'Unregistered') {
-        searchParams.isRegistered = "Unregistered";
-    }
+    // if (filters.businessType === 'Registered') {
+    //     searchParams.isRegistered = "Registered";
+    // } else if (filters.businessType === 'Unregistered') {
+    //     searchParams.isRegistered = "Unregistered";
+    // }
 
 
     const params = {
