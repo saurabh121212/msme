@@ -351,10 +351,10 @@ module.exports.filtersAPI = async (req, res, next) => {
     }
 
 
-    if (filters.business_type === 'Yes') {
-        searchParams.business_type = "Yes";
-    } else if (filters.business_type === 'No') {
-        searchParams.business_type = "No";
+    if (filters.business_type === 'Registered') {
+        searchParams.business_type = "Registered";
+    } else if (filters.business_type === 'Unregistered') {
+        searchParams.business_type = "Unregistered";
     }
 
 
