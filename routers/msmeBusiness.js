@@ -25,6 +25,10 @@ router.put('/update/:id',[
 
 // Done 
 router.get('/list', MSMEBusinessController.get);
+
+router.get('/list-web', MSMEBusinessController.getWeb);
+
+
 router.get('/list-according-category-id/:business_category_id', MSMEBusinessController.getListAccordingToCategoryId);
 
 router.get('/msme-details/:id', MSMEBusinessController.getMSMEDetails);

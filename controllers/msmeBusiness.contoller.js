@@ -64,7 +64,7 @@ module.exports.get = async (req, res, next) => {
     const offset = (page - 1) * limit;
 
     const params = {
-        searchParams: {is_verified:2},
+        searchParams: {},
         limit: limit,
         offset: offset,
         page: page,
@@ -82,6 +82,34 @@ module.exports.get = async (req, res, next) => {
         return res.status(500).json({ error: 'Internal server error' });
     }
 }
+
+
+module.exports.getWeb = async (req, res, next) => {
+
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const offset = (page - 1) * limit;
+
+    const params = {
+        searchParams: {},
+        limit: limit,
+        offset: offset,
+        page: page,
+        order: [["id", "DESC"]],
+    }
+    try {
+        const msmeInfo = await BaseRepo.baseList(MSMEBusinessModel, params);
+        if (!msmeInfo) {
+            return res.status(400).json({ error: 'Error fetching Business Categories' });
+        }
+        res.status(201).json(msmeInfo);
+    }
+    catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
 
 
 
