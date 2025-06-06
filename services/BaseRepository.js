@@ -132,8 +132,11 @@ async function list(modal, params) {
     let withPagination = false;
 
     const query = {
-        where: params.searchParams || params.where || {}
-    };
+        where: {
+        ...(params.searchParams || {}),
+        ...(params.where || {})
+    }
+    }
         console.log("WHERE clause:", query.where);
 
     if (params.hasOwnProperty('attributes')) {
