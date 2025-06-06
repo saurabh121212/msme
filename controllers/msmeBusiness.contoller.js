@@ -66,7 +66,7 @@ module.exports.get = async (req, res, next) => {
     const offset = (page - 1) * limit;
 
     const params = {
-        searchParams: { is_verified: 2 }, // Assuming you want to fetch only verified MSMEs
+        searchParams: { is_verified: 2 },
         limit: limit,
         offset: offset,
         page: page,
@@ -124,7 +124,10 @@ module.exports.getListAccordingToCategoryId = async (req, res, next) => {
     const business_category_id = req.params.business_category_id;
 
     const params = {
-        searchParams: { business_category_id: business_category_id, is_verified: 2 },
+        searchParams: {
+            business_category_id: business_category_id, 
+            is_verified: "2"
+         },
         limit: limit,
         offset: offset,
         page: page,
