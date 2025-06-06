@@ -194,8 +194,10 @@ async function list(modal, params) {
 
 
 
-async function list2(modal, params,business_category_id, is_verified) {
+async function list2(modal, params,business_category_id) {
     let withPagination = false;
+
+     const is_verified =  2;
 
     params.searchParams = {
         ...params.searchParams,
@@ -204,7 +206,7 @@ async function list2(modal, params,business_category_id, is_verified) {
     }
 
     console.log("business_category_id ==> ", business_category_id);
-    console.log("is_verified ==> ", is_verified);
+    console.log("is_verified ldkjfljsfj sklfjldjflsjldjflsd fjksldjf klsd ==> ", is_verified);
 
     const query = {
         where: params.searchParams || params.where || {}
