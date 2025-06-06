@@ -132,9 +132,6 @@ module.exports.getListAccordingToCategoryId = async (req, res, next) => {
         order: [["id", "DESC"]],
     }
 
-    console.log("params inside ==> ", params);
-    console.log("params.searchParams inside ==> ", params.searchParams);
-
     try {
         const msmeInfo = await BaseRepo.baseList2(MSMEBusinessModel, params,business_category_id, is_verified);
         if (!msmeInfo) {

@@ -203,8 +203,6 @@ async function list2(modal, params,business_category_id, is_verified) {
         is_verified: is_verified
     }
 
-    console.log("params.searchParams outside ==> ", params.searchParams);
-    console.log("params ==> ", params);
     console.log("business_category_id ==> ", business_category_id);
     console.log("is_verified ==> ", is_verified);
 
