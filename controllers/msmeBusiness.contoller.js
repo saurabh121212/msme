@@ -504,6 +504,9 @@ module.exports.forgetPassword = async (req, res, next) => {
     const email_address = req.params.email_address;
     const password = req.params.password;
 
+    console.log("email_address ==> ", email_address);
+    console.log("password ==> ", password);
+
     const isEmailExist = await MSMEBusinessModel.findOne({ where: { email_address: email_address } });
     if (!isEmailExist) {
         return res.status(400).json({ error: 'Invalid email address' });
