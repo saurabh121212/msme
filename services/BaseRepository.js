@@ -132,12 +132,10 @@ async function list(modal, params) {
     let withPagination = false;
 
     console.log("params ==> ", params);
+    console.log("params.searchParams outside ==> ", params.searchParams);
 
     const query = {
-        where: {
-        ...(params.searchParams || {}),
-        ...(params.where || {})
-    }
+        where: params.searchParams || params.where || {}
     }
     console.log("WHERE clause 1:", query.where);
 
