@@ -66,7 +66,7 @@ module.exports.get = async (req, res, next) => {
     const offset = (page - 1) * limit;
 
     const params = {
-        searchParams: {},
+        searchParams: { is_verified: 2 }, // Assuming you want to fetch only verified MSMEs
         limit: limit,
         offset: offset,
         page: page,
