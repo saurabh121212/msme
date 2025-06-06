@@ -131,6 +131,8 @@ function GalleryList(modal, params) {
 async function list(modal, params) {
     let withPagination = false;
 
+    console.log("params ==> ", params);
+
     const query = {
         where: {
         ...(params.searchParams || {}),
