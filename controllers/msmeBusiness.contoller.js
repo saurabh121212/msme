@@ -133,6 +133,10 @@ module.exports.getListAccordingToCategoryId = async (req, res, next) => {
         page: page,
         order: [["id", "DESC"]],
     }
+
+    console.log("params inside ==> ", params);
+    console.log("params.searchParams ==> ", params.searchParams);
+
     try {
         const msmeInfo = await BaseRepo.baseList(MSMEBusinessModel, params);
         if (!msmeInfo) {
