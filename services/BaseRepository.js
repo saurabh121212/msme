@@ -137,7 +137,7 @@ async function list(modal, params) {
         ...(params.where || {})
     }
     }
-        console.log("WHERE clause:", query.where);
+    console.log("WHERE clause 1:", query.where);
 
     if (params.hasOwnProperty('attributes')) {
         query['attributes'] = params.attributes;
@@ -172,6 +172,9 @@ async function list(modal, params) {
     if (params.hasOwnProperty('having')) {
         query['having'] = params.having;
     }
+
+    console.log("WHERE clause 2:", query.where)
+
     if (withPagination) {
 
         const data = await modal.findAndCountAll(query);
