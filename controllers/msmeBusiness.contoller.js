@@ -127,6 +127,7 @@ module.exports.getListAccordingToCategoryId = async (req, res, next) => {
     const params = {
         searchParams: {
             is_verified: is_verified,
+            business_category_id: business_category_id
          },
         limit: limit,
         offset: offset,
