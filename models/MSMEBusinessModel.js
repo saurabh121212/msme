@@ -54,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true, // or false if required
         },
         turnover: {
-            type: DataTypes.STRING(50),
+            type: DataTypes.STRING(200),
             allowNull: true, // or false if required
         },
         establishment_year: {
