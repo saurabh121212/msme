@@ -105,6 +105,12 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(600),
             allowNull: true, // or false if required
         },
+
+        incorporation_image_url: {
+            type: DataTypes.STRING(600),
+            allowNull: true, // or false if required
+        },
+
         password: {
             type: DataTypes.STRING(400),
             allowNull: true, // or false if required
@@ -112,6 +118,11 @@ module.exports = (sequelize, DataTypes) => {
         },
         is_verified: {
             type: DataTypes.STRING(20),
+            allowNull: false, // or false if required
+        },
+
+        is_verified_comments: {
+            type: DataTypes.STRING(800),
             allowNull: false, // or false if required
         },
 

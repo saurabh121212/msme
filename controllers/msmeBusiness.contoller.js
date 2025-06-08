@@ -255,7 +255,7 @@ module.exports.verifyMSME = async (req, res, next) => {
         }
 
         // Send email to the user
-        sendEmail("", payload.is_verified, payload.email_address);
+        sendEmail(payload, payload.is_verified, payload.email_address);
 
         res.status(201).json({
             message: 'MSME Business updated successfully',
@@ -327,6 +327,8 @@ module.exports.filtersAPI = async (req, res, next) => {
     const limit = parseInt(req.query.limit) || 10;
     const offset = (page - 1) * limit;
 
+    const is_verified =  '2';
+
     const filters = {
         business_category_id: req.query.business_category_id,
         region: req.query.region,
@@ -334,11 +336,10 @@ module.exports.filtersAPI = async (req, res, next) => {
         turnover: req.query.turnover,
         ownerType: req.query.ownerType,
         business_type: req.query.business_type,
+        is_verified : is_verified
     };
 
     const searchParams = {};
-
-
 
     if (filters.business_category_id && filters.business_category_id !== 'All') {
         searchParams.business_category_id = filters.business_category_id;
@@ -371,6 +372,8 @@ module.exports.filtersAPI = async (req, res, next) => {
     if (filters.ownerType && filters.ownerType !== 'All') {
         searchParams.ownerType = filters.ownerType;
     }
+
+    searchParams.is_verified = is_verified;
 
     // if (filters.businessType === 'Registered') {
     //     searchParams.isRegistered = "Registered";

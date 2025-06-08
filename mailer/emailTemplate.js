@@ -220,6 +220,7 @@ const userRejectedEmailTemplate = (payload, email) =>
    
     <b>Dear User,</b> <br>
     <p>Thank you for submitting your registration request. After reviewing your application, our system administrator was unable to approve it at this time.</p> 
+    <p> Comments by admin: ${payload.is_verified_comments} </p>
     <p>To proceed, the admin will reach out to you shortly to request additional information or clarification. Please keep an eye on your inbox for further communication.</p>
     <p>We appreciate your patience and cooperation. If you have any questions in the meantime, feel free to reach out.</p>
     <br>

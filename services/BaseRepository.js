@@ -205,13 +205,14 @@ async function list2(modal, params,business_category_id) {
         is_verified: is_verified
     }
 
-    console.log("business_category_id ==> ", business_category_id);
+    console.log("business_category_id ==> ", 
+      
+    );
     console.log("is_verified ldkjfljsfj sklfjldjflsjldjflsd fjksldjf klsd ==> ", is_verified);
 
     const query = {
         where: params.searchParams || params.where || {}
     }
-    console.log("WHERE clause 1:", query.where);
 
     if (params.hasOwnProperty('attributes')) {
         query['attributes'] = params.attributes;
@@ -247,7 +248,6 @@ async function list2(modal, params,business_category_id) {
         query['having'] = params.having;
     }
 
-    console.log("WHERE clause 2:", query.where)
 
     if (withPagination) {
 

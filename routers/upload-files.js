@@ -22,6 +22,9 @@ router.post('/business-image',  uploader("image", 20, "businessImage").single("f
 
 router.post('/business-profile',  uploader("document", 20, "businessProfile").single("file"), FileController.uploadFile);
 
+router.post('/incorporation-image',  uploader("image-document", 20, "incorporationProfile").single("file"), FileController.uploadFile);
+
+
 
 // router.post('/gallery-image', uploader("image", 20, "galleryImage").array("file",15), FileController.uploadMultipleFiles);
 
