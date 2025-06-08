@@ -123,7 +123,7 @@ module.exports = (sequelize, DataTypes) => {
 
         is_verified_comments: {
             type: DataTypes.STRING(800),
-            allowNull: false, // or false if required
+            allowNull: true, // or false if required
         },
 
         otp: {
