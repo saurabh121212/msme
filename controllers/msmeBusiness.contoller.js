@@ -375,11 +375,8 @@ module.exports.filtersAPI = async (req, res, next) => {
         searchParams.business_type = "Unregistered";
     }
 
-
-    if (filters.turnover) {
-        searchParams.turnover = {
-            [Op.lte]: filters.turnover
-        };
+     if (filters.turnover && filters.turnover !== 'All') {
+        searchParams.turnover = filters.turnover;
     }
 
     if (filters.ownerType && filters.ownerType !== 'All') {
