@@ -25,6 +25,7 @@ module.exports = {
     getDashboardWeatherDataRequests: getDashboardWeatherDataRequests,
     findToken_User:findToken_User,
     getSearchData: getSearchData,
+    getDashboardUserRigionWise: getDashboardUserRigionWise,
 };
 
 function create(modal, data) {
@@ -387,10 +388,10 @@ async function getWeatherDataFromDate(modal, locationId, startDate) {
 
         const alerts = await modal.findAll({
           attributes: [
-            [Sequelize.fn('MONTH', col('todate')), 'month'],
+            [Sequelize.fn('MONTH', col('createdAt')), 'month'],
             [Sequelize.fn('COUNT', '*'), 'count']
           ],
-          where: Sequelize.where(Sequelize.fn('YEAR', col('todate')), currentYear),
+          where: Sequelize.where(Sequelize.fn('YEAR', col('createdAt')), currentYear),
           group: [literal('month')],
           order: [[literal('month'), 'ASC']]
         });
@@ -429,3 +430,28 @@ async function getWeatherDataFromDate(modal, locationId, startDate) {
       throw error;
     }
   }
+
+
+  async function getDashboardUserRigionWise(modal, year) {
+  try {
+    const currentYear = year;
+
+    const usersByRegion = await modal.findAll({
+      attributes: [
+        'region',
+        [fn('COUNT', col('*')), 'msme_count']
+      ],
+      where: {
+        is_verified: 2
+      },
+      group: ['region'],
+      order: [[fn('COUNT', col('*')), 'DESC']] // optional: sort by count
+    });
+
+    return usersByRegion
+
+  } catch (error) {
+    console.error('Error fetching weather alarts data:', error);
+    throw error;
+  }
+}
