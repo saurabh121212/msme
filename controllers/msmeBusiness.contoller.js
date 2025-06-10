@@ -94,7 +94,7 @@ module.exports.getWeb = async (req, res, next) => {
     const is_verified = req.params.is_verified;
     
     let params;
-    if (!is_verified===0 || !is_verified==="0") {
+    if (is_verified===0 || is_verified==="0" || is_verified==='0' ){ 
          params = {
         searchParams: {},
         limit: limit,
@@ -146,7 +146,7 @@ module.exports.getListAccordingToCategoryId = async (req, res, next) => {
     }
 
     try {
-        const msmeInfo = await BaseRepo.baseList2(MSMEBusinessModel, params,business_category_id);
+        const msmeInfo = await BaseRepo.baseList2(MSMEBusinessModel, params,business_category_id,is_verified);
         if (!msmeInfo) {
             return res.status(400).json({ error: 'Error fetching Business Categories' });
         }
