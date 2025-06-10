@@ -91,14 +91,27 @@ module.exports.getWeb = async (req, res, next) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const offset = (page - 1) * limit;
-
-    const params = {
+    const is_verified = req.params.is_verified;
+    
+    let params;
+    if (!is_verified===0 || !is_verified==="0") {
+         params = {
         searchParams: {},
         limit: limit,
         offset: offset,
         page: page,
         order: [["id", "DESC"]],
     }
+    }
+    else{
+     params = {
+        searchParams: {is_verified:is_verified},
+        limit: limit,
+        offset: offset,
+        page: page,
+        order: [["id", "DESC"]],
+    }
+}
     try {
         const msmeInfo = await BaseRepo.baseList(MSMEBusinessModel, params);
         if (!msmeInfo) {

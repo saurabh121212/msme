@@ -26,7 +26,7 @@ router.put('/update/:id',[
 // Done 
 router.get('/list', MSMEBusinessController.get);
 
-router.get('/list-web', MSMEBusinessController.getWeb);
+router.get('/list-web/:is_verified', MSMEBusinessController.getWeb);
 
 
 router.get('/list-according-category-id/:business_category_id', MSMEBusinessController.getListAccordingToCategoryId);
