@@ -195,7 +195,7 @@ async function list(modal, params) {
 
 
 
-async function list2(modal, params,business_category_id,is_verified) {
+async function list2(modal,params,business_category_id,is_verified) {
     let withPagination = false;
 
     console.log("is_verified ==> ", is_verified);
@@ -209,11 +209,11 @@ async function list2(modal, params,business_category_id,is_verified) {
         is_verified: is_verified
     }
 
-    console.log("business_category_id ==> ",params.searchParams);
-    console.log("is_verified ldkjfljsfj sklfjldjflsjldjflsd fjksldjf klsd ==> ", is_verified);
+    // console.log("business_category_id ==> ",params.searchParams);
+    // console.log("is_verified ldkjfljsfj sklfjldjflsjldjflsd fjksldjf klsd ==> ", is_verified);
 
     const query = {
-        where: params.searchParams || params.where || {is_verified: is_verified}
+        where: params.searchParams || params.where || {}
     }
 
     if (params.hasOwnProperty('attributes')) {

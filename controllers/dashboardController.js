@@ -56,8 +56,15 @@ module.exports.getMSMETotalData = async (req, res, next) => {
     const totalOwnerMale = await BaseRepo.baseCount(MSMEBusinessModel, { ownerType: "Male" });
     const totalDisabilityOwned = await BaseRepo.baseCount(MSMEBusinessModel, { disability_owned: "Yes" });
 
+    const totalMSMERagistered = await BaseRepo.baseCount(MSMEBusinessModel, { business_type: "Registered" });
+    const totalMSMEUnragistered = await BaseRepo.baseCount(MSMEBusinessModel, { business_type: "Unregistered" });
+
+
     
-    console.log(totalMSME, totalMSMEApproved, totalMSMERejected, totalMSMEPending,totalOwnerFemale, totalOwnerMale, totalDisabilityOwned);
+    console.log(totalMSME, totalMSMEApproved, totalMSMERejected, 
+      totalMSMEPending,totalOwnerFemale, totalOwnerMale, totalDisabilityOwned,
+      totalMSMERagistered, totalMSMEUnragistered
+    );
 
     res.status(201).json({
       message: 'Dashboard MSME Total data fetched successfully',
@@ -68,7 +75,9 @@ module.exports.getMSMETotalData = async (req, res, next) => {
         totalMSMEPending,
         totalOwnerFemale,
         totalOwnerMale,
-        totalDisabilityOwned
+        totalDisabilityOwned,
+        totalMSMERagistered,
+        totalMSMEUnragistered
       }
     });
   }
