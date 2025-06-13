@@ -84,7 +84,8 @@ const ragistrationEmail = (payload) =>
     <br><br>
     <b> Eswatini MSME Platform Admin </b><br>
     Email: To be added later<br>
-    Tell: To be added later<br>
+    Tell: +268 2403 201/6<br>
+    Fax: +268 2404 4711/+268 2404 2959<br>
     Cell: To be added later<br>
     <br><br><br>
     <p style="color:red;"> *This is a system generated message, please do not reply to this email.</p>
@@ -174,7 +175,8 @@ const passwordResetOTPSend = (payload, email) =>
     <br><br>
     <b> Eswatini MSME Platform Admin </b><br>
     Email: To be added later <br>
-    Tell: To be added later <br>
+    Tell: +268 2403 201/6<br>
+    Fax: +268 2404 4711/+268 2404 2959<br>
     Cell: To be added later <br>
     <br><br><br>
     <p style="color:red;"> *This is a system generated message, please do not reply to this email.</p>
@@ -201,7 +203,8 @@ const userApprovedEmailTemplate = (payload, email) =>
     <br><br>
     <b> Eswatini MSME Platform Admin </b><br>
     Email: To be added later <br>
-    Tell: To be added later <br>
+    Tell: +268 2403 201/6<br>
+    Fax: +268 2404 4711/+268 2404 2959<br>
     Cell: To be added later <br>
     <br><br><br>
     <p style="color:red;"> *This is a system generated message, please do not reply to this email.</p>
@@ -229,7 +232,8 @@ const userRejectedEmailTemplate = (payload, email) =>
     <br><br>
     <b> Eswatini MSME Platform Admin </b><br>
     Email: To be added later <br>
-    Tell: To be added later <br>
+    Tell: +268 2403 201/6<br>
+    Fax: +268 2404 4711/+268 2404 2959<br>
     Cell: To be added later <br>
     <br><br><br>
     <p style="color:red;"> *This is a system generated message, please do not reply to this email.</p>

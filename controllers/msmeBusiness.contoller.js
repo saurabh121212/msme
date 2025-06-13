@@ -344,6 +344,7 @@ module.exports.filtersAPI = async (req, res, next) => {
 
     const filters = {
         business_category_id: req.query.business_category_id,
+        business_sub_category_id: req.query.business_sub_category_id,
         region: req.query.region,
         disability_owned: req.query.disability_owned,
         turnover: req.query.turnover,
@@ -356,6 +357,9 @@ module.exports.filtersAPI = async (req, res, next) => {
 
     if (filters.business_category_id && filters.business_category_id !== 'All') {
         searchParams.business_category_id = filters.business_category_id;
+    }
+    if (filters.business_sub_category_id && filters.business_sub_category_id !== 'All') {
+        searchParams.business_sub_category_id = filters.business_sub_category_id;
     }
 
     if (filters.region && filters.region !== 'All') {
@@ -390,7 +394,6 @@ module.exports.filtersAPI = async (req, res, next) => {
     // } else if (filters.businessType === 'Unregistered') {
     //     searchParams.isRegistered = "Unregistered";
     // }
-
 
     const params = {
         searchParams,

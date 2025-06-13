@@ -29,6 +29,18 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false, // or false if required
             minlength: [3, 'name must be at least 3 characters long'],
         },
+
+        business_sub_category_id: {
+            type: DataTypes.BIGINT,
+            allowNull: true,
+        },
+
+        business_sub_category_name: {
+            type: DataTypes.STRING(200),
+            allowNull: true, // or false if required
+            minlength: [3, 'name must be at least 3 characters long'],
+        },
+
         service_offered: {
             type: DataTypes.STRING(600),
             allowNull: true, // or false if required

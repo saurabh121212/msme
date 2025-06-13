@@ -42,6 +42,7 @@ const serviceProvidersRouter = require('./routers/serviceProviders.js');
 const serveiceProviderCategoryRouter = require('./routers/serviceProviderCategories.js');
 const msmeBusinessRouter = require('./routers/msmeBusiness.js');
 const dashboardRouter = require('./routers/dashboard.js');
+const businessSubCategoryRouter = require('./routers/businessSubCategories.js');
 
 
 
@@ -61,6 +62,7 @@ app.use('/api/service-providers', serviceProvidersRouter);
 app.use('/api/service-provider-category', serveiceProviderCategoryRouter);
 app.use('/api/msme-business', msmeBusinessRouter);
 app.use('/api/dashboard', dashboardRouter);
+app.use('/api/business-sub-category', businessSubCategoryRouter);
 
 
 const db = require('./db/database.js')(eventEmitter);
