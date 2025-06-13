@@ -58,8 +58,6 @@ module.exports.getMSMETotalData = async (req, res, next) => {
 
     const totalMSMERagistered = await BaseRepo.baseCount(MSMEBusinessModel, { business_type: "Registered" });
     const totalMSMEUnragistered = await BaseRepo.baseCount(MSMEBusinessModel, { business_type: "Unregistered" });
-
-
     
     console.log(totalMSME, totalMSMEApproved, totalMSMERejected, 
       totalMSMEPending,totalOwnerFemale, totalOwnerMale, totalDisabilityOwned,

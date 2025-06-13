@@ -422,14 +422,14 @@ module.exports.loginUser = async (req, res, next) => {
 
     const user = await MSMEBusinessModel.findOne({ where: { email_address } });
     if (!user) {
-        return res.status(400).json({ error: 'Invalid email or password 1' });
+        return res.status(400).json({ error: 'Invalid login credentials. Please check your email and password.' });
     }
 
     // console.log("user 1",user);
 
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
-        return res.status(400).json({ error: 'Invalid email or password 2' });
+        return res.status(400).json({ error: 'Invalid login credentials. Please check your email and password.' });
     }
     const token = await user.generateAuthToken(); // ✅ instance method
     res.status(200).json({ user, token });
@@ -461,7 +461,7 @@ module.exports.forgetPasswordSendEmail = async (req, res, next) => {
     try {
         const Business = await BaseRepo.baseUpdate(MSMEBusinessModel, { email_address }, payload);
         if (!Business) {
-            return res.status(400).json({ error: 'Error updating MSME Business' });
+            return res.status(400).json({ error: 'Error updating Your Password' });
         }
 
         // Send email to the user
