@@ -51,6 +51,37 @@ module.exports.get = async (req, res, next) => {
 }
 
 
+
+module.exports.getListBussinessId = async (req, res, next) => {
+
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const offset = (page - 1) * limit;
+    const businessCategoryId = req.params.business_category_id;
+
+    const params = {
+      searchParams: {business_category_id: businessCategoryId},
+      limit: limit,
+      offset: offset,
+      page: page,
+      order:[["id","DESC"]],
+  }
+  try {
+    const data = await BaseRepo.baseList(BusinessSubCategoriesModel, params);
+    if(!data){
+        return res.status(400).json({error: 'Error fetching Business Sub Categories according to Business Category'});
+    }
+    res.status(201).json(data);
+    } 
+    catch (error) {
+    console.error(error);
+    return res.status(500).json({error: 'Internal server error'});
+    }
+}
+
+
+
+
 module.exports.update = async (req, res, next) => {
 
     const error = validationResult(req);

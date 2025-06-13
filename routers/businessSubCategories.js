@@ -19,6 +19,10 @@ router.put('/update/:id',[
 
 
 router.get('/list', businessSubCategoriesController.get);
+
+router.get('/list-according-to-business-id/:business_category_id', businessSubCategoriesController.getListBussinessId);
+
+
 router.put('/delete/:id',authMiddleware.authAdmin, businessSubCategoriesController.delete);
 
 router.get('/search_by_name', businessSubCategoriesController.search);
