@@ -57,10 +57,10 @@ module.exports.getListBussinessId = async (req, res, next) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const offset = (page - 1) * limit;
-    const businessCategoryId = req.params.business_category_id;
+    const businessCategoryId = req.params.BusinessCategorieId;
 
     const params = {
-      searchParams: {business_category_id: businessCategoryId},
+      searchParams: {BusinessCategorieId: businessCategoryId},
       limit: limit,
       offset: offset,
       page: page,

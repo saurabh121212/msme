@@ -20,7 +20,7 @@ router.put('/update/:id',[
 
 router.get('/list', businessSubCategoriesController.get);
 
-router.get('/list-according-to-business-id/:business_category_id', businessSubCategoriesController.getListBussinessId);
+router.get('/list-according-to-business-id/:BusinessCategorieId', businessSubCategoriesController.getListBussinessId);
 
 
 router.put('/delete/:id',authMiddleware.authAdmin, businessSubCategoriesController.delete);

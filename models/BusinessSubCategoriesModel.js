@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.BIGINT,
             allowNull: false,
         },
+       BusinessCategorieName: {
+            type: DataTypes.STRING(200),
+            allowNull: false,
+        },
         name: {
             type: DataTypes.STRING(200),
             allowNull: false, // or false if required
