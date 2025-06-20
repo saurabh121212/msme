@@ -12,11 +12,13 @@ router.get('/data/:year',authMiddleware.authAdmin,dashboardController.getDashboa
 
 router.get('/msme_total/:year',authMiddleware.authAdmin,dashboardController.getMSMETotalData);
 
+router.get('/msme_directors_info/:year',authMiddleware.authAdmin,dashboardController.getMSMEDirectorsInfoData);
+
 router.get('/msme_requests/:year',authMiddleware.authAdmin,dashboardController.getDashboardMSMERequestsData);
 
 router.get('/msme_according_to_turnover/:year',authMiddleware.authAdmin,dashboardController.getDashboardAccordingToTurnoverData);
 
- router.get('/msme_region_wise/:year',authMiddleware.authAdmin,dashboardController.getDashboardMSMERegionWiseData);
+router.get('/msme_region_wise/:year',authMiddleware.authAdmin,dashboardController.getDashboardMSMERegionWiseData);
 
 
 // router.get('/weather_data_requests/:year',authMiddleware.authAdmin,dashboardController.getDashboardWeatherDataRequests);

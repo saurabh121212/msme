@@ -1,5 +1,5 @@
 const BaseRepo = require('../services/BaseRepository');
-const { MSMEBusinessModel,  } = require('../models');
+const { MSMEBusinessModel, DirectorsInfoModel } = require('../models');
 const { validationResult } = require('express-validator');
 
 module.exports.getDashboardData = async (req, res, next) => {
@@ -59,6 +59,7 @@ module.exports.getMSMETotalData = async (req, res, next) => {
     const totalMSMERagistered = await BaseRepo.baseCount(MSMEBusinessModel, { business_type: "Registered" });
     const totalMSMEUnragistered = await BaseRepo.baseCount(MSMEBusinessModel, { business_type: "Unregistered" });
     
+
     console.log(totalMSME, totalMSMEApproved, totalMSMERejected, 
       totalMSMEPending,totalOwnerFemale, totalOwnerMale, totalDisabilityOwned,
       totalMSMERagistered, totalMSMEUnragistered
@@ -84,6 +85,48 @@ module.exports.getMSMETotalData = async (req, res, next) => {
     return res.status(500).json({ error: 'Internal server error' });
   }
 }
+
+
+
+module.exports.getMSMEDirectorsInfoData = async (req, res, next) => {
+
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+  const offset = (page - 1) * limit;
+
+  const params = {
+    searchParams: {},
+  }
+  try {
+    const totalDirectors = await BaseRepo.baseCount(DirectorsInfoModel,{});
+    const totalMaleDirectors = await BaseRepo.baseCount(DirectorsInfoModel, { gender: "Male" });
+    const totalFemaleDirectors = await BaseRepo.baseCount(DirectorsInfoModel, {gender: "Female" });
+    const total18YearsOldDirectors = await BaseRepo.baseCount(DirectorsInfoModel, { age: "18-25" });
+    const total25YearsOldDirectors = await BaseRepo.baseCount(DirectorsInfoModel, { age: "25-40" });
+    const total40YearsOldDirectors = await BaseRepo.baseCount(DirectorsInfoModel, { age: "40+" });
+    
+    console.log(totalDirectors, totalMaleDirectors, totalFemaleDirectors, 
+      total18YearsOldDirectors,total25YearsOldDirectors, total40YearsOldDirectors);
+
+    res.status(201).json({
+      message: 'Dashboard MSME Directors data fetched successfully',
+      data: {
+        totalDirectors,
+        totalMaleDirectors,
+        totalFemaleDirectors,
+        total18YearsOldDirectors,
+        total25YearsOldDirectors,
+        total40YearsOldDirectors
+      }
+    });
+  }
+  catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
+
 
 
 
