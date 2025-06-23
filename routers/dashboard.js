@@ -20,16 +20,9 @@ router.get('/msme_according_to_turnover/:year',authMiddleware.authAdmin,dashboar
 
 router.get('/msme_region_wise/:year',authMiddleware.authAdmin,dashboardController.getDashboardMSMERegionWiseData);
 
+router.get('/msme_list_according_to_category',authMiddleware.authAdmin,dashboardController.getDashboardMSMEListAccordingToCategoryData);
 
-// router.get('/weather_data_requests/:year',authMiddleware.authAdmin,dashboardController.getDashboardWeatherDataRequests);
+router.get('/service_provider_list_according_to_category',authMiddleware.authAdmin,dashboardController.getDashboardServiceProviderListAccordingToCategoryData);
 
-// router.get('/incidents_reported/:year',authMiddleware.authAdmin,dashboardController.getDashboardIncidentsReportedData);
-
-// router.get('/alarts_type/:year',authMiddleware.authAdmin,dashboardController.getDashboardAlartsTypeData);
-
-// router.get('/users_region_wise/:year',authMiddleware.authAdmin,dashboardController.getDashboardUsersRegionWiseData);
-
-
-// router.put('/delete/:id',authMiddleware.authAdmin, FAQsController.deleteFAQs);
 
 module.exports = router;

@@ -1,5 +1,5 @@
 const BaseRepo = require('../services/BaseRepository');
-const { MSMEBusinessModel, DirectorsInfoModel } = require('../models');
+const { MSMEBusinessModel, DirectorsInfoModel,ServiceProvidersModel } = require('../models');
 const { validationResult } = require('express-validator');
 
 module.exports.getDashboardData = async (req, res, next) => {
@@ -203,6 +203,57 @@ module.exports.getDashboardMSMERegionWiseData = async (req, res, next) => {
   }
   try {
     const alarts = await BaseRepo.getDashboardUserRigionWise(MSMEBusinessModel, year);
+
+    res.status(201).json({
+      message: 'Dashboard User Data fetched successfully',
+      data: alarts
+    });
+
+  }
+  catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
+
+module.exports.getDashboardMSMEListAccordingToCategoryData = async (req, res, next) => {
+
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+  const offset = (page - 1) * limit;
+
+  const params = {
+    searchParams: {},
+  }
+  try {
+    const alarts = await BaseRepo.getMSMEDataAccordingToCategory(MSMEBusinessModel);
+
+    res.status(201).json({
+      message: 'Dashboard User Data fetched successfully',
+      data: alarts
+    });
+
+  }
+  catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
+
+
+module.exports.getDashboardServiceProviderListAccordingToCategoryData = async (req, res, next) => {
+
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+  const offset = (page - 1) * limit;
+
+  const params = {
+    searchParams: {},
+  }
+  try {
+    const alarts = await BaseRepo.getServiceProviderDataAccordingToCategory(ServiceProvidersModel);
 
     res.status(201).json({
       message: 'Dashboard User Data fetched successfully',
