@@ -272,8 +272,6 @@ async function list2(modal, params, business_category_id, is_verified) {
 async function list3(modal, params, business_category_id) {
   let withPagination = false;
 
-  console.log("is_verified ==> ", is_verified);
-  //  let is_verified =  2;
 
   params.searchParams = {
     ...params.searchParams,
