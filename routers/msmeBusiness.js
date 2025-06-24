@@ -28,11 +28,15 @@ router.get('/list', MSMEBusinessController.get);
 
 router.get('/list-web/:is_verified', MSMEBusinessController.getWeb);
 
-
+// Old API for getting MSME list according to category ID
 router.get('/list-according-category-id/:business_category_id', MSMEBusinessController.getListAccordingToCategoryId);
 
-router.get('/msme-details/:id', MSMEBusinessController.getMSMEDetails);
+// New API for getting MSME list according to category ID with pagination
+router.get('/list-according-category-id-v2/:business_category_id', MSMEBusinessController.getListAccordingToCategoryIdV2);
 
+
+
+router.get('/msme-details/:id', MSMEBusinessController.getMSMEDetails);
 
 // Verify MSME Business
 router.put('/verify-msme/:id',[

@@ -9,7 +9,8 @@ module.exports = {
   baseBulkCreate: bulkCreate,
   baseDetail: detail,
   baseList: list,
-  baseList2: list2,
+  baseList2: list2, 
+  baseList3: list3, 
   baseUpdate: update,
   baseDelete: deleteEntry,
   baseRestore: baseRestore,
@@ -211,8 +212,6 @@ async function list2(modal, params, business_category_id, is_verified) {
     is_verified: is_verified
   }
 
-  // console.log("business_category_id ==> ",params.searchParams);
-  // console.log("is_verified ldkjfljsfj sklfjldjflsjldjflsd fjksldjf klsd ==> ", is_verified);
 
   const query = {
     where: params.searchParams || params.where || {}
@@ -270,6 +269,70 @@ async function list2(modal, params, business_category_id, is_verified) {
 }
 
 
+async function list3(modal, params, business_category_id) {
+  let withPagination = false;
+
+  console.log("is_verified ==> ", is_verified);
+  //  let is_verified =  2;
+
+  params.searchParams = {
+    ...params.searchParams,
+    business_category_id: business_category_id,
+  }
+
+  const query = {
+    where: params.searchParams || params.where || {}
+  }
+
+  if (params.hasOwnProperty('attributes')) {
+    query['attributes'] = params.attributes;
+  }
+  if (params.hasOwnProperty('include')) {
+    query['include'] = params.include;
+    // distinct is true because paginator count include as row
+    query['distinct'] = true;
+  }
+  if (params.hasOwnProperty('order')) {
+    query['order'] = params.order;
+  }
+  if (params.hasOwnProperty('limit')) {
+    query['limit'] = params.limit;
+    withPagination = true;
+  }
+  if (params.hasOwnProperty('paranoid')) {
+    query['paranoid'] = params.paranoid;
+  }
+  if (params.hasOwnProperty('offset')) {
+    query['offset'] = params.offset;
+  }
+  if (params.hasOwnProperty('isRaw')) {
+    query['raw'] = params.isRaw;
+  }
+  if (params.hasOwnProperty('distinct')) {
+    query['distinct'] = params.distinct;
+  }
+  if (params.hasOwnProperty('group')) {
+    query['group'] = params.group;
+  }
+  if (params.hasOwnProperty('having')) {
+    query['having'] = params.having;
+  }
+
+  if (withPagination) {
+
+    const data = await modal.findAndCountAll(query);
+    const total = data.count;
+    const totalPages = Math.ceil(total / params.limit);
+
+    return {
+      values: data,
+      page: params.page,
+      limit: params.limit,
+      total_pages: totalPages,
+      total: total
+    }
+  }
+}
 
 
 function update(modal, params, data) {
