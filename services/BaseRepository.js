@@ -9,8 +9,8 @@ module.exports = {
   baseBulkCreate: bulkCreate,
   baseDetail: detail,
   baseList: list,
-  baseList2: list2, 
-  baseList3: list3, 
+  baseList2: list2,
+  baseList3: list3,
   baseUpdate: update,
   baseDelete: deleteEntry,
   baseRestore: baseRestore,
@@ -521,28 +521,70 @@ async function getDashboardUserRigionWise(modal, year) {
 }
 
 
-async function getMSMEDataAccordingToCategory(modal) {
+// async function getMSMEDataAccordingToCategory(modal) {
+//   try {
+//     const result = await modal.findAll({
+//       attributes: [
+//         'business_category_id',
+//         'business_category_name',
+//         [Sequelize.fn('COUNT', Sequelize.col('id')), 'total_msmes'],
+//         [
+//           Sequelize.literal(`COUNT(CASE WHEN is_verified = '1' THEN 1 END)`),
+//           'pending_count'
+//         ],
+//         [
+//           Sequelize.literal(`COUNT(CASE WHEN is_verified = '2' THEN 1 END)`),
+//           'verified_count'
+//         ],
+//         [
+//           Sequelize.literal(`COUNT(CASE WHEN is_verified = '3' THEN 1 END)`),
+//           'rejected_count'
+//         ],
+//       ],
+//       group: ['business_category_id', 'business_category_name']
+//     });
+//     return result;
+//   } catch (error) {
+//     console.error('Error fetching weather alerts data:', error);
+//     throw error;
+//   }
+// }
+
+
+
+
+async function getMSMEDataAccordingToCategory(modal,modal2) {
   try {
-    const result = await modal.findAll({
+    const result = await modal2.findAll({
       attributes: [
-        'business_category_id',
-        'business_category_name',
-        [Sequelize.fn('COUNT', Sequelize.col('id')), 'total_msmes'],
+        'id',
+        'name',
+        [Sequelize.fn('COUNT', Sequelize.col('msmes.id')), 'total_msmes'],
         [
-          Sequelize.literal(`COUNT(CASE WHEN is_verified = '1' THEN 1 END)`),
+          Sequelize.literal(`COUNT(CASE WHEN msmes.is_verified = '1' THEN 1 END)`),
           'pending_count'
         ],
         [
-          Sequelize.literal(`COUNT(CASE WHEN is_verified = '2' THEN 1 END)`),
+          Sequelize.literal(`COUNT(CASE WHEN msmes.is_verified = '2' THEN 1 END)`),
           'verified_count'
         ],
         [
-          Sequelize.literal(`COUNT(CASE WHEN is_verified = '3' THEN 1 END)`),
+          Sequelize.literal(`COUNT(CASE WHEN msmes.is_verified = '3' THEN 1 END)`),
           'rejected_count'
         ],
       ],
-      group: ['business_category_id', 'business_category_name']
+      include: [
+        {
+          model: modal,
+          required: false, // LEFT JOIN
+          as: 'msmes',
+          attributes: [],
+          on: Sequelize.literal(`msmes.business_category_id = BusinessCategoriesModel.id`)
+        }
+      ],
+      group: ['BusinessCategoriesModel.id', 'BusinessCategoriesModel.name']
     });
+
     return result;
   } catch (error) {
     console.error('Error fetching weather alerts data:', error);

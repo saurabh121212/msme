@@ -23,5 +23,13 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'businessCategories', // Optional: useful for clarity and pluralization control
     });
 
+    Model.associate = (models) => {
+    Model.hasMany(models.MSMEBusinessModel, {
+      foreignKey: 'business_category_id',
+      sourceKey: 'id',
+      as: 'msmes'
+    });
+  };
+
     return Model;
 };

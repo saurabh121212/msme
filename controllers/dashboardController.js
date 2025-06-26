@@ -1,5 +1,5 @@
 const BaseRepo = require('../services/BaseRepository');
-const { MSMEBusinessModel, DirectorsInfoModel,ServiceProvidersModel } = require('../models');
+const { MSMEBusinessModel, DirectorsInfoModel,ServiceProvidersModel,BusinessCategoriesModel } = require('../models');
 const { validationResult } = require('express-validator');
 
 module.exports.getDashboardData = async (req, res, next) => {
@@ -229,7 +229,7 @@ module.exports.getDashboardMSMEListAccordingToCategoryData = async (req, res, ne
     searchParams: {},
   }
   try {
-    const alarts = await BaseRepo.getMSMEDataAccordingToCategory(MSMEBusinessModel);
+    const alarts = await BaseRepo.getMSMEDataAccordingToCategory(MSMEBusinessModel,BusinessCategoriesModel);
 
     res.status(201).json({
       message: 'Dashboard User Data fetched successfully',
