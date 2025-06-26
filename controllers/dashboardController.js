@@ -101,6 +101,7 @@ module.exports.getMSMEDirectorsInfoData = async (req, res, next) => {
     const totalDirectors = await BaseRepo.baseCount(DirectorsInfoModel,{});
     const totalMaleDirectors = await BaseRepo.baseCount(DirectorsInfoModel, { gender: "Male" });
     const totalFemaleDirectors = await BaseRepo.baseCount(DirectorsInfoModel, {gender: "Female" });
+    const totalOtherDirectors = await BaseRepo.baseCount(DirectorsInfoModel, {gender: "Other" });
     const total18YearsOldDirectors = await BaseRepo.baseCount(DirectorsInfoModel, { age: "18-25" });
     const total25YearsOldDirectors = await BaseRepo.baseCount(DirectorsInfoModel, { age: "25-40" });
     const total40YearsOldDirectors = await BaseRepo.baseCount(DirectorsInfoModel, { age: "40+" });
@@ -114,6 +115,7 @@ module.exports.getMSMEDirectorsInfoData = async (req, res, next) => {
         totalDirectors,
         totalMaleDirectors,
         totalFemaleDirectors,
+        totalOtherDirectors,
         total18YearsOldDirectors,
         total25YearsOldDirectors,
         total40YearsOldDirectors

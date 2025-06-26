@@ -10,9 +10,9 @@ module.exports = (sequelize, DataTypes) => {
             autoIncrement: true
         },
         name_of_organization: {
-            type: DataTypes.STRING(300),
+            type: DataTypes.STRING(70),
             allowNull: false, // or false if required
-            minlength: [3, 'name must be at least 3 characters long'],
+            minlength: [3, 'name must be at least 30 characters long'],
         },
         brief_company_description: {
             type: DataTypes.TEXT,

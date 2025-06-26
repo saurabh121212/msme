@@ -158,10 +158,11 @@ module.exports.searchServiceProvider = async (req, res, next) => {
         order: [["id", "DESC"]],
     }
 
-    console.log(name);
+
+    // console.log(name);
 
     try {
-        const WeatherDataRequest = await BaseRepo.getSearchData(ServiceProvidersModel,name,"name");
+        const WeatherDataRequest = await BaseRepo.getSearchData(ServiceProvidersModel,name,"business_name");
         if (!WeatherDataRequest) {
             return res.status(400).json({ error: 'Error fetching Service Providers' });
         }

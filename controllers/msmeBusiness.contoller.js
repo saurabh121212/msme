@@ -18,7 +18,7 @@ module.exports.add = async (req, res, next) => {
 
     const isEmailExist = await MSMEBusinessModel.findOne({ where: { email_address: msmeData.email_address } });
     if (isEmailExist) {
-        return res.status(400).json({ error: 'Email ID already exists' });
+        return res.status(400).json({ error: 'This email is already registered. Please use a different email address.' });
     }
 
     const hashedPassword = await MSMEBusinessModel.hashPassword(msmeData.password.toString());

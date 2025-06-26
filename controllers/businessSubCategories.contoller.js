@@ -10,6 +10,11 @@ module.exports.add = async (req, res, next) => {
         return res.status(400).json({error: error.array()});
     }
     const payload = req.body;
+
+    const isNameExist = await BusinessSubCategoriesModel.findOne({ where: {name: payload.name } });
+    if (isNameExist) {
+        return res.status(400).json({ error: 'Sub Category name already exist' });
+    }
     try {
     const data = await BaseRepo.baseCreate(BusinessSubCategoriesModel, payload);
     if(!data){
