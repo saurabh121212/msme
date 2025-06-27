@@ -8,6 +8,10 @@ module.exports.getDashboardData = async (req, res, next) => {
   const limit = parseInt(req.query.limit) || 10;
   const offset = (page - 1) * limit;
 
+  const year = req.params.year;
+
+  console.log("Year:", year);
+
   const params = {
     searchParams: {},
   }
@@ -93,6 +97,9 @@ module.exports.getMSMEDirectorsInfoData = async (req, res, next) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
   const offset = (page - 1) * limit;
+  const year = req.params.year;
+
+  console.log("Year:", year);
 
   const params = {
     searchParams: {},
@@ -164,6 +171,9 @@ module.exports.getDashboardAccordingToTurnoverData = async (req, res, next) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
   const offset = (page - 1) * limit;
+  const year = req.params.year;
+
+  console.log("Year:", year);
 
   const params = {
     searchParams: {},
