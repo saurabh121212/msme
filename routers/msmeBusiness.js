@@ -18,6 +18,9 @@ router.post('/login',[
     body('password'),
 ], MSMEBusinessController.loginUser);
 
+// check if email exists
+router.get('/check-email-exists/:email_address', MSMEBusinessController.checkEmailExists);
+
 
 router.put('/update/:id',[
     body('name_of_organization').isLength({min: 3}).withMessage('Name must be at least 3 characters long'),
@@ -33,7 +36,6 @@ router.get('/list-according-category-id/:business_category_id', MSMEBusinessCont
 
 // New API for getting MSME list according to category ID with pagination
 router.get('/list-according-category-id-v2/:business_category_id', MSMEBusinessController.getListAccordingToCategoryIdV2);
-
 
 
 router.get('/msme-details/:id', MSMEBusinessController.getMSMEDetails);

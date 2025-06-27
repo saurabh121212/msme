@@ -1,6 +1,6 @@
 const { Sequelize, QueryTypes } = require('sequelize');
 const Op = Sequelize.Op;
-const { fn, col, literal } = require('sequelize');
+const { fn, col, literal,where,where: sequelizeWhere } = require('sequelize');
 const db = require('../models/index');
 
 
@@ -15,6 +15,7 @@ module.exports = {
   baseDelete: deleteEntry,
   baseRestore: baseRestore,
   baseCount: count,
+  baseDashboardCount: dashboardCount,
   baseFindById: findById,
   baseFindAllById: findAllById,
   baseGalleryList: GalleryList,
@@ -43,6 +44,29 @@ function count(modal, searchParams) {
   return modal.count({ where: searchParams });
 }
 
+function count(modal, searchParams) {
+  return modal.count({ 
+    where: searchParams 
+
+  });
+}
+
+
+function dashboardCount(modal, key, value, year) {
+  const conditions = {
+    [key]: value,
+  };
+
+  if (year && year.toString().toLowerCase() !== 'all') {
+    conditions[Op.and] = [
+      where(fn('YEAR', col('createdAt')), year)
+    ];
+  }
+
+  return modal.count({
+    where: conditions
+  });
+}
 
 
 function findById(modal, params, key) {
@@ -446,16 +470,43 @@ async function getAlartsByDate(modal, todayDate) {
 }
 
 
+// async function getDashboardAlarts(modal, year) {
+//   try {
+//     const currentYear = year;
+
+//     const alerts = await modal.findAll({
+//       attributes: [
+//         [Sequelize.fn('MONTH', col('createdAt')), 'month'],
+//         [Sequelize.fn('COUNT', '*'), 'count']
+//       ],
+//       where: Sequelize.where(Sequelize.fn('YEAR', col('createdAt')), currentYear),
+//       group: [literal('month')],
+//       order: [[literal('month'), 'ASC']]
+//     });
+
+//     return alerts.map(alert => ({
+//       month: parseInt(alert.get('month'), 10),
+//       count: parseInt(alert.get('count'), 10)
+//     }));
+//   } catch (error) {
+//     console.error('Error fetching weather alarts data:', error);
+//     throw error;
+//   }
+// }
+
+
 async function getDashboardAlarts(modal, year) {
   try {
-    const currentYear = year;
+    const whereClause = (year && year.toString().toLowerCase() !== 'all')
+      ? sequelizeWhere(fn('YEAR', col('createdAt')), year)
+      : undefined;
 
     const alerts = await modal.findAll({
       attributes: [
-        [Sequelize.fn('MONTH', col('createdAt')), 'month'],
-        [Sequelize.fn('COUNT', '*'), 'count']
+        [fn('MONTH', col('createdAt')), 'month'],
+        [fn('COUNT', '*'), 'count']
       ],
-      where: Sequelize.where(Sequelize.fn('YEAR', col('createdAt')), currentYear),
+      where: whereClause,
       group: [literal('month')],
       order: [[literal('month'), 'ASC']]
     });
@@ -465,7 +516,7 @@ async function getDashboardAlarts(modal, year) {
       count: parseInt(alert.get('count'), 10)
     }));
   } catch (error) {
-    console.error('Error fetching weather alarts data:', error);
+    console.error('Error fetching weather alerts data:', error);
     throw error;
   }
 }
@@ -496,29 +547,60 @@ async function getDashboardWeatherDataRequests(modal, year) {
 }
 
 
+// async function getDashboardUserRigionWise(modal, year) {
+//   try {
+//     const currentYear = year;
+
+//     const usersByRegion = await modal.findAll({
+//       attributes: [
+//         'region',
+//         [fn('COUNT', col('*')), 'msme_count']
+//       ],
+//       where: {
+//         is_verified: 2
+//       },
+//       group: ['region'],
+//       order: [[fn('COUNT', col('*')), 'DESC']] // optional: sort by count
+//     });
+
+//     return usersByRegion
+
+//   } catch (error) {
+//     console.error('Error fetching weather alarts data:', error);
+//     throw error;
+//   }
+// }
+
+
 async function getDashboardUserRigionWise(modal, year) {
   try {
-    const currentYear = year;
+    const whereClause = {
+      is_verified: 2
+    };
+
+    if (year && year.toString().toLowerCase() !== 'all') {
+      whereClause[Op.and] = [
+        sequelizeWhere(fn('YEAR', col('createdAt')), year)
+      ];
+    }
 
     const usersByRegion = await modal.findAll({
       attributes: [
         'region',
         [fn('COUNT', col('*')), 'msme_count']
       ],
-      where: {
-        is_verified: 2
-      },
+      where: whereClause,
       group: ['region'],
-      order: [[fn('COUNT', col('*')), 'DESC']] // optional: sort by count
+      order: [[fn('COUNT', col('*')), 'DESC']]
     });
 
-    return usersByRegion
-
+    return usersByRegion;
   } catch (error) {
-    console.error('Error fetching weather alarts data:', error);
+    console.error('Error fetching user region-wise data:', error);
     throw error;
   }
 }
+
 
 
 // async function getMSMEDataAccordingToCategory(modal) {

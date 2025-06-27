@@ -12,10 +12,10 @@ module.exports.getDashboardData = async (req, res, next) => {
     searchParams: {},
   }
   try {
-    const totalMSME = await BaseRepo.baseCount(MSMEBusinessModel,{});
-    const totalMSMEApproved = await BaseRepo.baseCount(MSMEBusinessModel, { is_verified: 2 });
-    const totalMSMERejected = await BaseRepo.baseCount(MSMEBusinessModel, {is_verified: 3 });
-    const totalMSMEPending = await BaseRepo.baseCount(MSMEBusinessModel, { is_verified: 1 });
+    const totalMSME = await BaseRepo.baseDashboardCount(MSMEBusinessModel,"deletedAt",null, year);
+    const totalMSMEApproved = await BaseRepo.baseDashboardCount(MSMEBusinessModel,  "is_verified", "2" ,year);
+    const totalMSMERejected = BaseRepo.baseDashboardCount(MSMEBusinessModel, "is_verified", "3" , year);
+    const totalMSMEPending = await BaseRepo.baseDashboardCount(MSMEBusinessModel, "is_verified", "1", year);
 
     console.log(totalMSME, totalMSMEApproved, totalMSMERejected, totalMSMEPending);
 
@@ -36,30 +36,30 @@ module.exports.getDashboardData = async (req, res, next) => {
 }
 
 
-
-
 module.exports.getMSMETotalData = async (req, res, next) => {
 
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
   const offset = (page - 1) * limit;
+  const year = req.params.year;
+
+  console.log("Year:", year);
 
   const params = {
     searchParams: {},
   }
   try {
-    const totalMSME = await BaseRepo.baseCount(MSMEBusinessModel,{});
-    const totalMSMEApproved = await BaseRepo.baseCount(MSMEBusinessModel, { is_verified: 2 });
-    const totalMSMERejected = await BaseRepo.baseCount(MSMEBusinessModel, {is_verified: 3 });
-    const totalMSMEPending = await BaseRepo.baseCount(MSMEBusinessModel, { is_verified: 1 });
-    const totalOwnerFemale = await BaseRepo.baseCount(MSMEBusinessModel, { ownerType: "Female" });
-    const totalOwnerMale = await BaseRepo.baseCount(MSMEBusinessModel, { ownerType: "Male" });
-    const totalDisabilityOwned = await BaseRepo.baseCount(MSMEBusinessModel, { disability_owned: "Yes" });
+    const totalMSME = await BaseRepo.baseDashboardCount(MSMEBusinessModel,"deletedAt",null, year);
+    const totalMSMEApproved = await BaseRepo.baseDashboardCount(MSMEBusinessModel,  "is_verified", "2" ,year);
+    const totalMSMERejected = await BaseRepo.baseDashboardCount(MSMEBusinessModel, "is_verified", "3" , year);
+    const totalMSMEPending = await BaseRepo.baseDashboardCount(MSMEBusinessModel, "is_verified", "1", year);
+    const totalOwnerFemale = await BaseRepo.baseDashboardCount(MSMEBusinessModel,  "ownerType", "Female" , year);
+    const totalOwnerMale = await BaseRepo.baseDashboardCount(MSMEBusinessModel,  "ownerType", "Male" , year);
+    const totalDisabilityOwned = await BaseRepo.baseDashboardCount(MSMEBusinessModel,  "disability_owned", "Yes", year);
 
-    const totalMSMERagistered = await BaseRepo.baseCount(MSMEBusinessModel, { business_type: "Registered" });
-    const totalMSMEUnragistered = await BaseRepo.baseCount(MSMEBusinessModel, { business_type: "Unregistered" });
+    const totalMSMERagistered = await BaseRepo.baseDashboardCount(MSMEBusinessModel,  "business_type", "Registered" , year);
+    const totalMSMEUnragistered = await BaseRepo.baseDashboardCount(MSMEBusinessModel, "business_type", "Unregistered", year);
     
-
     console.log(totalMSME, totalMSMEApproved, totalMSMERejected, 
       totalMSMEPending,totalOwnerFemale, totalOwnerMale, totalDisabilityOwned,
       totalMSMERagistered, totalMSMEUnragistered
@@ -98,13 +98,13 @@ module.exports.getMSMEDirectorsInfoData = async (req, res, next) => {
     searchParams: {},
   }
   try {
-    const totalDirectors = await BaseRepo.baseCount(DirectorsInfoModel,{});
-    const totalMaleDirectors = await BaseRepo.baseCount(DirectorsInfoModel, { gender: "Male" });
-    const totalFemaleDirectors = await BaseRepo.baseCount(DirectorsInfoModel, {gender: "Female" });
-    const totalOtherDirectors = await BaseRepo.baseCount(DirectorsInfoModel, {gender: "Other" });
-    const total18YearsOldDirectors = await BaseRepo.baseCount(DirectorsInfoModel, { age: "18-25" });
-    const total25YearsOldDirectors = await BaseRepo.baseCount(DirectorsInfoModel, { age: "25-40" });
-    const total40YearsOldDirectors = await BaseRepo.baseCount(DirectorsInfoModel, { age: "40+" });
+    const totalDirectors = await BaseRepo.baseDashboardCount(DirectorsInfoModel,"deletedAt", null, year);
+    const totalMaleDirectors = await BaseRepo.baseDashboardCount(DirectorsInfoModel,  "gender", "Male", year);
+    const totalFemaleDirectors = await BaseRepo.baseDashboardCount(DirectorsInfoModel, "gender", "Female", year);
+    const totalOtherDirectors = await BaseRepo.baseDashboardCount(DirectorsInfoModel, "gender", "Other" , year);
+    const total18YearsOldDirectors = await BaseRepo.baseDashboardCount(DirectorsInfoModel,  "age", "18-25" , year);
+    const total25YearsOldDirectors = await BaseRepo.baseDashboardCount(DirectorsInfoModel,  "age", "25-40", year);
+    const total40YearsOldDirectors = await BaseRepo.baseDashboardCount(DirectorsInfoModel,  "age", "40+" , year);
     
     console.log(totalDirectors, totalMaleDirectors, totalFemaleDirectors, 
       total18YearsOldDirectors,total25YearsOldDirectors, total40YearsOldDirectors);
@@ -146,7 +146,7 @@ module.exports.getDashboardMSMERequestsData = async (req, res, next) => {
     const alarts = await BaseRepo.getDashboardAlarts(MSMEBusinessModel, year);
 
     res.status(201).json({
-      message: 'Dashboard MSME Requests Recived Data fetched successfully',
+      message: 'Dashboard MSME Requests Received Data fetched successfully',
       data: alarts
     });
 
@@ -169,10 +169,10 @@ module.exports.getDashboardAccordingToTurnoverData = async (req, res, next) => {
     searchParams: {},
   }
   try {
-    const totalMSME = await BaseRepo.baseCount(MSMEBusinessModel,{});
-    const totalMSMESmall = await BaseRepo.baseCount(MSMEBusinessModel, { turnover: "small" });
-    const totalMSMEMicro = await BaseRepo.baseCount(MSMEBusinessModel, {turnover: "micro" });
-    const totalMSMEMedium = await BaseRepo.baseCount(MSMEBusinessModel, { turnover: "medium" });
+    const totalMSME = await BaseRepo.baseDashboardCount(MSMEBusinessModel,"deletedAt",null, year);
+    const totalMSMESmall = await BaseRepo.baseDashboardCount(MSMEBusinessModel, "turnover", "small", year);
+    const totalMSMEMicro = await BaseRepo.baseDashboardCount(MSMEBusinessModel, "turnover", "micro" , year);
+    const totalMSMEMedium = await BaseRepo.baseDashboardCount(MSMEBusinessModel, "turnover", "medium" , year);
 
     console.log(totalMSME, totalMSMESmall, totalMSMEMicro, totalMSMEMedium);
 

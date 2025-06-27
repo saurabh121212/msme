@@ -86,32 +86,52 @@ module.exports.get = async (req, res, next) => {
 }
 
 
+module.exports.checkEmailExists = async (req, res, next) => {
+
+    const email_address = req.params.email_address;
+
+    try {
+        const isEmailExist = await MSMEBusinessModel.findOne({ where: { email_address: email_address } });
+        if (isEmailExist) {
+            return res.status(400).json({ exists: true, message: 'Email already exists' });
+        } else {
+            return res.status(200).json({ exists: false, message: 'Email does not exist' });
+        }
+    }
+    catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+
+
 module.exports.getWeb = async (req, res, next) => {
 
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const offset = (page - 1) * limit;
     const is_verified = req.params.is_verified;
-    
+
     let params;
-    if (is_verified===0 || is_verified==="0" || is_verified==='0' ){ 
-         params = {
-        searchParams: {},
-        limit: limit,
-        offset: offset,
-        page: page,
-        order: [["id", "DESC"]],
+    if (is_verified === 0 || is_verified === "0" || is_verified === '0') {
+        params = {
+            searchParams: {},
+            limit: limit,
+            offset: offset,
+            page: page,
+            order: [["id", "DESC"]],
+        }
     }
+    else {
+        params = {
+            searchParams: { is_verified: is_verified },
+            limit: limit,
+            offset: offset,
+            page: page,
+            order: [["id", "DESC"]],
+        }
     }
-    else{
-     params = {
-        searchParams: {is_verified:is_verified},
-        limit: limit,
-        offset: offset,
-        page: page,
-        order: [["id", "DESC"]],
-    }
-}
     try {
         const msmeInfo = await BaseRepo.baseList(MSMEBusinessModel, params);
         if (!msmeInfo) {
@@ -135,7 +155,7 @@ module.exports.getListAccordingToCategoryId = async (req, res, next) => {
     const offset = (page - 1) * limit;
 
     const business_category_id = req.params.business_category_id;
-    const is_verified =  2; // Default to 2 if not provided
+    const is_verified = 2; // Default to 2 if not provided
 
     const params = {
         searchParams: {},
@@ -146,7 +166,7 @@ module.exports.getListAccordingToCategoryId = async (req, res, next) => {
     }
 
     try {
-        const msmeInfo = await BaseRepo.baseList2(MSMEBusinessModel, params,business_category_id,is_verified);
+        const msmeInfo = await BaseRepo.baseList2(MSMEBusinessModel, params, business_category_id, is_verified);
         if (!msmeInfo) {
             return res.status(400).json({ error: 'Error fetching Business Categories' });
         }
@@ -168,7 +188,7 @@ module.exports.getListAccordingToCategoryIdV2 = async (req, res, next) => {
     const offset = (page - 1) * limit;
 
     const business_category_id = req.params.business_category_id;
-    const is_verified =  2; // Default to 2 if not provided
+    const is_verified = 2; // Default to 2 if not provided
 
     const params = {
         searchParams: {},
@@ -179,7 +199,7 @@ module.exports.getListAccordingToCategoryIdV2 = async (req, res, next) => {
     }
 
     try {
-        const msmeInfo = await BaseRepo.baseList3(MSMEBusinessModel, params,business_category_id,is_verified);
+        const msmeInfo = await BaseRepo.baseList3(MSMEBusinessModel, params, business_category_id, is_verified);
         if (!msmeInfo) {
             return res.status(400).json({ error: 'Error fetching Business Categories' });
         }
@@ -376,7 +396,7 @@ module.exports.filtersAPI = async (req, res, next) => {
     const limit = parseInt(req.query.limit) || 10;
     const offset = (page - 1) * limit;
 
-    const is_verified =  '2';
+    const is_verified = '2';
 
     const filters = {
         business_category_id: req.query.business_category_id,
@@ -386,7 +406,7 @@ module.exports.filtersAPI = async (req, res, next) => {
         turnover: req.query.turnover,
         ownerType: req.query.ownerType,
         business_type: req.query.business_type,
-        is_verified : is_verified
+        is_verified: is_verified
     };
 
     const searchParams = {};
@@ -415,7 +435,7 @@ module.exports.filtersAPI = async (req, res, next) => {
         searchParams.business_type = "Unregistered";
     }
 
-     if (filters.turnover && filters.turnover !== 'All') {
+    if (filters.turnover && filters.turnover !== 'All') {
         searchParams.turnover = filters.turnover;
     }
 
@@ -531,10 +551,10 @@ module.exports.forgetPasswordVerifyOTP = async (req, res, next) => {
     const otp = req.params.otp;
 
     try {
-    const record = await MSMEBusinessModel.findOne({ where: { email_address: email_address, otp: otp } });
-    if (!record || record.otp_expiry < new Date()) {
-        return res.status(400).json({ message: "Invalid or expired OTP" });
-    }
+        const record = await MSMEBusinessModel.findOne({ where: { email_address: email_address, otp: otp } });
+        if (!record || record.otp_expiry < new Date()) {
+            return res.status(400).json({ message: "Invalid or expired OTP" });
+        }
         res.status(201).json({
             message: 'OTP verified successfully',
         });
