@@ -18,7 +18,7 @@ module.exports.getDashboardData = async (req, res, next) => {
   try {
     const totalMSME = await BaseRepo.baseDashboardCount(MSMEBusinessModel,"deletedAt",null, year);
     const totalMSMEApproved = await BaseRepo.baseDashboardCount(MSMEBusinessModel,  "is_verified", "2" ,year);
-    const totalMSMERejected = BaseRepo.baseDashboardCount(MSMEBusinessModel, "is_verified", "3" , year);
+    const totalMSMERejected = await BaseRepo.baseDashboardCount(MSMEBusinessModel, "is_verified", "3" , year);
     const totalMSMEPending = await BaseRepo.baseDashboardCount(MSMEBusinessModel, "is_verified", "1", year);
 
     console.log(totalMSME, totalMSMEApproved, totalMSMERejected, totalMSMEPending);
