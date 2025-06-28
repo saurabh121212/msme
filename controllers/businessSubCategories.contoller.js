@@ -97,6 +97,11 @@ module.exports.update = async (req, res, next) => {
     const payload = req.body;
     const id = req.params.id;
 
+    const isNameExist = await BusinessSubCategoriesModel.findOne({ where: {name: payload.name } });
+    if (isNameExist) {
+        return res.status(400).json({ error: 'Sub Category name already exist' });
+    }
+
     try {
     const data = await BaseRepo.baseUpdate(BusinessSubCategoriesModel, {id}, payload);
     if(!data){

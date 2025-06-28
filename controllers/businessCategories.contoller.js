@@ -67,6 +67,11 @@ module.exports.updateWeatherCategories = async (req, res, next) => {
     const payload = req.body;
     const id = req.params.id;
 
+   const isNameExist = await BusinessCategoriesModel.findOne({ where: {name: payload.name } });
+    if (isNameExist) {
+        return res.status(400).json({ error: 'Category name already exist' });
+    }
+
     try {
     const BusinessCategories = await BaseRepo.baseUpdate(BusinessCategoriesModel, {id}, payload);
     if(!BusinessCategories){
