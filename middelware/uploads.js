@@ -1,10 +1,17 @@
 'use strict'
 
-const {Multer} = require('../services/multer')
+const { Multer } = require('../services/multer')
 const mimeTypes = {
-    'image': ['image/jpg', 'image/jpeg', 'image/png', 'image/svg','image/svg+xml'],
-    'document': ['application/pdf','application/msword', "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.ms-powerpoint", "application/vnd.openxmlformats-officedocument.presentationml.presentation"],
-    'image-document': ['image/jpg', 'image/jpeg', 'image/png', 'image/svg','image/svg+xml', 'application/pdf','application/msword', "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.ms-powerpoint", "application/vnd.openxmlformats-officedocument.presentationml.presentation"]
+    'image': ['image/jpg', 'image/jpeg', 'image/png', 'image/svg', 'image/svg+xml'],
+    'document': ['application/pdf', 'application/msword', "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "application/vnd.ms-powerpoint", "application/vnd.openxmlformats-officedocument.presentationml.presentation"],
+
+    'image-document': ['image/jpg', 'image/jpeg', 'image/png', 'image/svg',
+        'image/svg+xml', 'application/pdf', 'application/msword',
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.ms-excel",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "application/vnd.ms-powerpoint", "application/vnd.openxmlformats-officedocument.presentationml.presentation"]
 }
 
 const storeDestination = {
@@ -21,7 +28,7 @@ const storeDestination = {
     'incorporationProfile': "incorporation-profile/"
 }
 
-module.exports =  (fileType, fileSize, filePath) => {
-        const uploader = new Multer(mimeTypes[fileType], fileSize, storeDestination[filePath]);
-        return uploader.upload
+module.exports = (fileType, fileSize, filePath) => {
+    const uploader = new Multer(mimeTypes[fileType], fileSize, storeDestination[filePath]);
+    return uploader.upload
 }
